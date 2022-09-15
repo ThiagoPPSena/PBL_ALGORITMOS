@@ -25,7 +25,7 @@ public interface InterfaceJogador {
      *
      * @param jog Objeto do tipo Jogador
      */
-	public void RemoverJogador(Jogador jog);
+	public void RemoverJogador(int codJog);
 	
 	/**
      * Retorna um Map de objetos do tipo Jogador.

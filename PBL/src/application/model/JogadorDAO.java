@@ -14,8 +14,8 @@ public class JogadorDAO implements InterfaceJogador{
 		ColecaoJog.put(jog.getCodJog(), jog);
 	}
 
-	public void RemoverJogador(Jogador jog) {
-		ColecaoJog.remove(jog.getCodJog());
+	public void RemoverJogador(int codJog) {
+		ColecaoJog.remove(codJog);
 	}
 
 	public Map<Integer, Jogador> ListaJog() {

@@ -13,10 +13,6 @@ public class ArbitroDAO{
 		ColecaoArbitro.remove(codArbitro);
 	}
 	
-	public void AtualizarArbitro(int codArbitro, String nome) {
-		ColecaoArbitro.get(codArbitro).setNome(nome);
-	}
-	
 	public Map<Integer, Arbitro> ListaArbitro() {
 		return ColecaoArbitro;
 	}
