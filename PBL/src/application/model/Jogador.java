@@ -2,18 +2,19 @@ package application.model;
 
 public class Jogador {
 	private int codJog;
+	private static int cod = 0;
 	private String nome;
 	private String posicao;
-	private int[] cartoes = new int[2];
-	private int numGols;
+	private int[] cartoes = {0, 0};
+	private int numGols = 0;
 	
-	public Jogador(int codJog, String nome, String posicao, int[] cartoes, int numGols) {
-		this.codJog = codJog;
+	public Jogador(String nome, String posicao) {
+		this.codJog = cod;
+		cod++;
 		this.nome = nome;
 		this.posicao = posicao;
-		this.cartoes = cartoes;
-		this.numGols = numGols;
 	}
+		
 	
 	public int getCodJog() {
 		return codJog;

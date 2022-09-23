@@ -3,10 +3,12 @@ package application.model;
 public class Tecnico{
 	private int codTec;
 	private String nome;
+	private static int cod = 0;
 	
-	public Tecnico(int codTec, String nome) {
-		this.codTec = codTec;
+	public Tecnico(String nome) {
+		this.codTec = cod;
 		this.nome = nome;
+		cod++;
 	}
 	
 	public int getCodTec() {

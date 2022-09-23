@@ -3,6 +3,7 @@ package application.model;
 import java.util.*;
 
 public class SelecaoDAO implements InterfaceSelecao{
+	
 	private List<Selecao> ColecaoSelecao = new ArrayList<Selecao>();
 	
 	public Selecao BuscarSelecao (String nomeSelecao) {
@@ -15,14 +16,14 @@ public class SelecaoDAO implements InterfaceSelecao{
 	}
 	
 	public void InserirSelecao(Selecao Sel) {
-		ColecaoSelecao.add(Sel);
+		this.ColecaoSelecao.add(Sel);
 	}
 	
 	public void RemoverSelecao(String nomeSelecao) {
 		Selecao sel = BuscarSelecao(nomeSelecao);
 		
 		if (sel != null) {
-			ColecaoSelecao.remove(sel);
+			this.ColecaoSelecao.remove(sel);
 		}
 	}
 	
@@ -35,6 +36,6 @@ public class SelecaoDAO implements InterfaceSelecao{
 	}
 	
 	public List<Selecao> ListaSelecao(){
-		return ColecaoSelecao;
+		return this.ColecaoSelecao;
 	}
 }

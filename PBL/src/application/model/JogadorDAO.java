@@ -7,18 +7,18 @@ public class JogadorDAO implements InterfaceJogador{
 	private Map<Integer, Jogador> ColecaoJog = new HashMap<Integer, Jogador>();
 	
 	public Jogador BuscarJogador(int codJog) {
-		return ColecaoJog.get(codJog);
+		return this.ColecaoJog.get(codJog);
 	}
 
 	public void InserirJogador(Jogador jog) {
-		ColecaoJog.put(jog.getCodJog(), jog);
+		this.ColecaoJog.put(jog.getCodJog(), jog);
 	}
 
 	public void RemoverJogador(int codJog) {
-		ColecaoJog.remove(codJog);
+		this.ColecaoJog.remove(codJog);
 	}
 
 	public Map<Integer, Jogador> ListaJog() {
-		return ColecaoJog;
+		return this.ColecaoJog;
 	}
 }
