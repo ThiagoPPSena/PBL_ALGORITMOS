@@ -312,6 +312,7 @@ public class Main extends Application {
 		}
 	}
 	
+	//Função que remove a seleção e seus jogadores e técnico
 	public static void removerSelecao(JogadorDAO j, SelecaoDAO s, TecnicoDAO t) {
 		
 		listarSelecoes(s);
