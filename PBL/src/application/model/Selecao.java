@@ -2,16 +2,24 @@ package application.model;
 import java.util.*;
 
 public class Selecao{
+	private static int cod = 0;
+	private int codSel;
 	private String nome;
 	private List<Integer> listaCodJog = new ArrayList<Integer>();
 	private int codTec;
 	
 	public Selecao(String nome) {
 		this.nome = nome;
+		this.codSel = cod;
+		cod++;
+	}
+	
+	public int getCodSel() {
+		return this.codSel;
 	}
 	
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 	
 	public void setNome(String nome) {
@@ -19,7 +27,7 @@ public class Selecao{
 	}
 	
 	public List<Integer> getListaCodJog() {
-		return listaCodJog;
+		return this.listaCodJog;
 	}
 	
 	public void setListaCodJog(List<Integer> listaCodJog) {
@@ -27,7 +35,7 @@ public class Selecao{
 	}
 
 	public int getCodTec() {
-		return codTec;
+		return this.codTec;
 	}
 
 	public void setCodTec(int codTec) {

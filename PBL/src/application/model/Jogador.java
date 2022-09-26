@@ -15,17 +15,12 @@ public class Jogador {
 		this.posicao = posicao;
 	}
 		
-	
 	public int getCodJog() {
-		return codJog;
-	}
-	
-	public void setCodJog(int codJog) {
-		this.codJog = codJog;
+		return this.codJog;
 	}
 	
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 	
 	public void setNome(String nome) {
@@ -33,7 +28,7 @@ public class Jogador {
 	}
 
 	public String getPosicao() {
-		return posicao;
+		return this.posicao;
 	}
 
 	public void setPosicao(String posicao) {
@@ -41,7 +36,7 @@ public class Jogador {
 	}
 
 	public int[] getCartoes() {
-		return cartoes;
+		return this.cartoes;
 	}
 
 	public void setCartoes(int[] cartoes) {
@@ -49,7 +44,7 @@ public class Jogador {
 	}
 
 	public int getNumGols() {
-		return numGols;
+		return this.numGols;
 	}
 
 	public void setNumGols(int numGols) {

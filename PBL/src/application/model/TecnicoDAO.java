@@ -2,7 +2,7 @@ package application.model;
 
 import java.util.*;
 
-public class TecnicoDAO{
+public class TecnicoDAO implements InterfaceTecnico{
 	
 	private Map<Integer, Tecnico> ColecaoTecnicos = new HashMap<Integer, Tecnico>();
 	
@@ -10,8 +10,8 @@ public class TecnicoDAO{
 		this.ColecaoTecnicos.put(Tec.getCodTec(), Tec);
 	}
 	
-	public void RemoverTecnico(int codTecnico) {
-		this.ColecaoTecnicos.remove(codTecnico);
+	public Tecnico RemoverTecnico(int codTecnico) {
+		return this.ColecaoTecnicos.remove(codTecnico);
 	}
 	
 	public Map<Integer, Tecnico> ListaTecnico(){

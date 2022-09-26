@@ -4,38 +4,25 @@ import java.util.*;
 
 public class SelecaoDAO implements InterfaceSelecao{
 	
-	private List<Selecao> ColecaoSelecao = new ArrayList<Selecao>();
+	private Map<Integer, Selecao> ColecaoSelecao = new HashMap<Integer, Selecao>();
 	
-	public Selecao BuscarSelecao (String nomeSelecao) {
-		for (int i = 0; i < ColecaoSelecao.size(); i++) {
-			if (nomeSelecao == ColecaoSelecao.get(i).getNome()) {
-				return ColecaoSelecao.get(i);
-			}
-		}
-		return null;
+	public Selecao BuscarSelecao(int codSel) {
+		return this.ColecaoSelecao.get(codSel);
 	}
 	
-	public void InserirSelecao(Selecao Sel) {
-		this.ColecaoSelecao.add(Sel);
+	public void InserirSelecao(Selecao sel) {
+		this.ColecaoSelecao.put(sel.getCodSel(), sel);
 	}
 	
-	public void RemoverSelecao(String nomeSelecao) {
-		Selecao sel = BuscarSelecao(nomeSelecao);
-		
-		if (sel != null) {
-			this.ColecaoSelecao.remove(sel);
-		}
+	public Selecao RemoverSelecao(int codSel) {
+		return this.ColecaoSelecao.remove(codSel);
 	}
 	
-	public void AtualizarSelecao(String nomeSelecao, String novo_nomeSelecao) {
-		BuscarSelecao(nomeSelecao).setNome(novo_nomeSelecao);
+	public List<Integer> CodJogadoresSelecao(int codSel) {
+		return BuscarSelecao(codSel).getListaCodJog();
 	}
 	
-	public List<Integer> CodJogadoresSelecao(String nomeSelecao) {
-		return BuscarSelecao(nomeSelecao).getListaCodJog();
-	}
-	
-	public List<Selecao> ListaSelecao(){
+	public Map<Integer, Selecao> ListaSelecao(){
 		return this.ColecaoSelecao;
 	}
 }

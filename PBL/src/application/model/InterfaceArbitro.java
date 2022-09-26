@@ -4,6 +4,6 @@ import java.util.*;
 
 public interface InterfaceArbitro {
 	public void InserirArbitro(Arbitro Arb);
-	public void RemoverArbitro(int codArbitro);
+	public Arbitro RemoverArbitro(int codArbitro);
 	public Map<Integer, Arbitro> ListaArbitro();
-}
+} 

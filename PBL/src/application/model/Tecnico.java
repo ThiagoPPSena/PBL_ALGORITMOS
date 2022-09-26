@@ -12,15 +12,11 @@ public class Tecnico{
 	}
 	
 	public int getCodTec() {
-		return codTec;
+		return this.codTec;
 	}
 	
-	public void setCodTec(int codTec) {
-		this.codTec = codTec;
-	}
-
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setNome(String nome) {

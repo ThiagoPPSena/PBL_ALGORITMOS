@@ -2,7 +2,7 @@ package application.model;
 
 import java.util.*;
 
-public class ArbitroDAO{
+public class ArbitroDAO implements InterfaceArbitro{
 	
 	private Map<Integer, Arbitro> ColecaoArbitro = new HashMap<Integer, Arbitro>();
 	
@@ -10,8 +10,8 @@ public class ArbitroDAO{
 		this.ColecaoArbitro.put(Arb.getCodArbitro(), Arb);
 	}
 	
-	public void RemoverArbitro(int codArbitro) {
-		this.ColecaoArbitro.remove(codArbitro);
+	public Arbitro RemoverArbitro(int codArbitro) {
+		return this.ColecaoArbitro.remove(codArbitro);
 	}
 	
 	public Map<Integer, Arbitro> ListaArbitro() {
