@@ -331,10 +331,11 @@ public class Main extends Application {
 			}
 			t.RemoverTecnico(s.BuscarSelecao(cod).getCodTec()); //Remove do sistema o técnico atrelado à seleção
 			s.RemoverSelecao(cod); //Por fim, remove a seleção
+			System.out.println("Seleção removida com sucesso!");
 		}else { //Se a seleção não existe
 			System.out.println("Você digitou um código inválido!!!");
 		}
-		System.out.println("Seleção removida com sucesso!");
+		
 	}
 
 	public static void main(String[] args) {

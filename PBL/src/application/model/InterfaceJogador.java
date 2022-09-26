@@ -20,9 +20,10 @@ public interface InterfaceJogador {
 	public void InserirJogador(Jogador jog);
 	
 	/**
-     * Remove um objeto do tipo Jogador de um Map específico.
+     * Remove um objeto do tipo Jogador de um Map específico, e retorna-o.
      *
-     * @param jog objeto do tipo Jogador
+     * @param codJog código do Jogador
+     * @return objeto do tipo Jogador
      */
 	public Jogador RemoverJogador(int codJog);
 	

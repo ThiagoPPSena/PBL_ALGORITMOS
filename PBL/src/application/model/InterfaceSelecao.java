@@ -7,7 +7,7 @@ public interface InterfaceSelecao {
 	/**
      * Retorna um objeto do tipo Selecao.
      *
-     * @param nomeSelecao nome da Seleção
+     * @param codSel código da Selecao
      * @return retorna um objeto do tipo Selecao
      */
 	public Selecao BuscarSelecao(int codSel);
@@ -20,24 +20,25 @@ public interface InterfaceSelecao {
 	public void InserirSelecao(Selecao Sel);
 	
 	/**
-     * Remove um objeto do tipo Selecao de uma lista específica.
+     * Remove um objeto do tipo Selecao de uma lista específica, e retorna-o.
      *
-     * @param nomeSelecao nome da Seleção
+     * @param codSel código da Selecao
+     * @return objeto do tipo Selecao
      */
 	public Selecao RemoverSelecao(int codSel);
 	
 	/**
      * Retorna uma lista de inteiros que são os códigos dos jogadores de uma determinada Seleção.
      *
-     * @param nomeSelecao nome da Seleção
+     * @param codSel código da Selecao
      * @return retorna uma lista de inteiros que são os códigos dos jogadores de uma determinada Seleção.
      */
 	public List<Integer> CodJogadoresSelecao(int codSel);
 	
 	/**
-     * Retorna uma lista de objetos do tipo Selecao.
+     * Retorna um Map de objetos do tipo Selecao.
      *
-     * @return retorna uma lista de objetos do tipo Selecao
+     * @return retorna um Map de objetos do tipo Selecao
      */
 	public Map<Integer, Selecao> ListaSelecao();
 }
