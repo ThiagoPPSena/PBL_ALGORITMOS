@@ -17,7 +17,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
 
 public class Main extends Application {
-	static Scanner leitor = new Scanner(System.in);
+	
+	static Scanner leitor = new Scanner(System.in); //Objeto para entrada de dados
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -114,6 +115,7 @@ public class Main extends Application {
 		}
 	}
 	
+	//Função mais ampla que chama chama outras duas funções: listarSelecoes e listarMembrosSelecao
 	public static void listarSelecoesOuComponentes(JogadorDAO j, SelecaoDAO s, TecnicoDAO t) {
 		System.out.println("Qual ação deseja tomar?");
 		System.out.println("1-Listar todas as seleções\n2-Listar todos os componentes de uma seleção");
@@ -150,9 +152,9 @@ public class Main extends Application {
 	public static void listarMembrosSelecao(int cod, JogadorDAO j, SelecaoDAO s, TecnicoDAO t) {
 		Selecao sele = s.BuscarSelecao(cod); //Instancia um objeto do tipo seleção, buscando-a pelo seu código
 		if(sele != null) { //Se encontrar a seleção...
-			System.out.println("Técnico: "+t.ListaTecnico().get(sele.getCodTec()).getNome());
+			System.out.println("Técnico: "+t.ListaTecnico().get(sele.getCodTec()).getNome()); //Printa o nome do técnico
 			for(int codJog : s.CodJogadoresSelecao(cod)) {
-				System.out.println("Código "+codJog+": "+j.BuscarJogador(codJog));
+				System.out.println("Código "+codJog+": "+j.BuscarJogador(codJog)); //Printa o nome de todos os jogadores
 			}
 		}else { //Se não encontrar a seleção...
 			System.out.println("Seleção não encontrada!!!");
@@ -166,49 +168,50 @@ public class Main extends Application {
 		int posicao;
 		
 		System.out.println("Qual seleção deseja criar? (Digite o nome)");
-		nome = leitor.nextLine();
-		Selecao sel = new Selecao(nome);
+		nome = leitor.nextLine(); //Recebe o nome da seleção
+		Selecao sel = new Selecao(nome); //Instancia um objeto Selecao
 		System.out.println("Agora digite os dados dos 11 jogadores da selecao:");
-		for(int i=1; i<3; i++) {
+		for(int i=1; i<12; i++) { //Cria os 11 jogadores da selecao
 			System.out.println("Dados do "+i+"º jogador:");
 			System.out.println("Nome:");
-			nome = leitor.nextLine();
+			nome = leitor.nextLine(); //Recebe o nome do jogador
 			System.out.println("Posição (1-Goleiro; 2-Zagueiro; 3-Meia; 4-Atacante):");
-			posicao = leitor.nextInt();
-			leitor.nextLine();
+			posicao = leitor.nextInt(); //Recebe um inteiro que simboliza sua posicao
+			leitor.nextLine(); //Limpa o buffer
 			switch(posicao) {
-			case 1:
+			case 1: //Se digitou 1, sua posição é goleiro
 				posicaoString = "Goleiro";
 				break;
-			case 2:
+			case 2: //Se digitou 2, sua posição é zagueiro
 				posicaoString = "Zagueiro";
 				break;
-			case 3:
+			case 3: //Se digitou 3, sua posição é meia
 				posicaoString = "Meia";
 				break;
-			case 4:
+			case 4: //Se digitou 4, sua posição é atacante
 				posicaoString = "Atacante";
 				break;
-			default:
+			default: //Se não for digitado nenhum dos inteiros esperados
 				System.out.println("Você digitou um valor inválido, a posição dele vai ser colocada como vazia. Altere-a futuramente!");
 				posicaoString = "";
 				break;
 			}
-			Jogador jog = new Jogador(nome, posicaoString);
-			j.InserirJogador(jog);
-			sel.getListaCodJog().add(jog.getCodJog());
+			Jogador jog = new Jogador(nome, posicaoString); //Instancia um novo objeto Jogador
+			j.InserirJogador(jog); //Insere no DAO de jogador
+			sel.getListaCodJog().add(jog.getCodJog()); //Adiciona seu código à sua respectiva seleção
 			System.out.println("\n\nJogador cadastrado com sucesso!!!\n");
 		}
 		System.out.println("Agora digite nome do técnico:");
-		nome = leitor.nextLine();
-		Tecnico tec = new Tecnico(nome);
-		t.InserirTecnico(tec);
-		sel.setCodTec(tec.getCodTec());
-		s.InserirSelecao(sel);
+		nome = leitor.nextLine(); //Recebe o nome do técnico da seleção
+		Tecnico tec = new Tecnico(nome); //Instancia um novo objeto Tecnico
+		t.InserirTecnico(tec); //Insere no DAO  de tecnico
+		sel.setCodTec(tec.getCodTec()); //Adiciona seu código à sua respectiva seleção
+		s.InserirSelecao(sel); //Insere a seleção já criada na lista do DAO selecao
 		System.out.println("\n\nSeleção cadastrada com sucesso!!!\n");
 		
 	}
 	
+	//Função que edita a seleção, seus jogadores e seus técnicos
 	public static void editarSelecao(JogadorDAO j, SelecaoDAO s, TecnicoDAO t) {
 		listarSelecoes(s); //Lista todas as seleções já cadastradas para facilitar que o usuário saiba qual editar
 		System.out.println("Qual a seleção a ter seus dados alterados? (digite o código)");
@@ -247,63 +250,65 @@ public class Main extends Application {
 		}
 	}
 	
+	//Função que edita um jogador de uma seleção escolhida
 	public static void editarJogador(int codJog, int codSel, JogadorDAO j, SelecaoDAO s) {
-		if(s.CodJogadoresSelecao(codSel).contains(codJog)) {
+		if(s.CodJogadoresSelecao(codSel).contains(codJog)) { //Se o a seleção escolhida tiver o jogador escolhido para ser editado...
 			System.out.println("Deseja alterar o quê de "+j.BuscarJogador(codJog).getNome()+"?");
 			System.out.println("1-Nome\n2-Posição\n3-Número de cartões\n4-Número de gols");
-			System.out.println("Escolha:");
-			int escolha = leitor.nextInt();
+			System.out.println("Escolha:"); 
+			int escolha = leitor.nextInt(); //O usuário escolhe o que editar do jogador
 			leitor.nextLine();
 			switch(escolha) {
-			case 1:
+			case 1: //Se escolher editar nome...
 				System.out.println("Qual o novo nome?");
 				String nome = leitor.nextLine();
-				j.BuscarJogador(codJog).setNome(nome);
+				j.BuscarJogador(codJog).setNome(nome); //Seta o nome no DAO jogador
 				System.out.println("Nome alterado com sucesso!");
 				break;
-			case 2:
+			case 2: //Se escolher a posição...
 				System.out.println("Qual a nova posição? (1-Goleiro; 2-Zagueiro; 3-Meia; 4-Atacante)");
 				String posicaoString;
-				int posicao = leitor.nextInt();
-				leitor.nextLine();
+				int posicao = leitor.nextInt(); //Recebe um inteiro que simboliza a nova posição do jogador
+				leitor.nextLine(); //Limpa o buffer
 				switch(posicao) {
-				case 1:
+				case 1: //Se escolheu goleiro...
 					posicaoString = "Goleiro";
 					break;
-				case 2:
+				case 2: //Se escolheu zagueiro...
 					posicaoString = "Zagueiro";
 					break;
-				case 3:
+				case 3: //Se escolheu meia...
 					posicaoString = "Meia";
 					break;
-				case 4:
+				case 4: //Se escolheu atacante...
 					posicaoString = "Atacante";
 					break;
-				default:
+				default: //Se escolheu nenhuma posição
+					System.out.println("Você escolheu nenhuma das posições, a posição do jogador será armazenada como vazia!\n");
 					posicaoString = "";
 					break;
 				}
-				j.BuscarJogador(codJog).setPosicao(posicaoString);
+				j.BuscarJogador(codJog).setPosicao(posicaoString); //Seta a posição do jogador no DAO jogador
 				System.out.println("Posição alterada com sucesso!");
 				break;
-			case 3:
+			case 3: //Caso queira editar o número de cartões...
 				System.out.println("Quantos cartões amarelos esse jogador tem?");
-				int cartAma = leitor.nextInt();
+				int cartAma = leitor.nextInt(); //Recebe a quantidade de cartões amarelo que o jogador tem no total da competição
 				System.out.println("Quantos cartões vermelhos esse jogador tem?");
-				int cartVer = leitor.nextInt();
+				int cartVer = leitor.nextInt(); //Recebe a quantidade de cartões vermelho que o jogador tem no total da competição
 				leitor.nextLine(); //Limpa o buffer
 				int[] cartoes = {cartAma, cartVer};
-				j.BuscarJogador(codJog).setCartoes(cartoes);
+				j.BuscarJogador(codJog).setCartoes(cartoes); //seta mo DAO jogador o número de cartões
 				System.out.println("Edição feita com sucesso!");
 				break;
-			case 4:
+			case 4: //Caso tenha escolhido editar o número de gols...
 				System.out.println("Quantos gols esse jogador tem?");
-				int gols = leitor.nextInt();
+				int gols = leitor.nextInt(); //Recebe o número de gols total do jogador na competição
 				leitor.nextLine(); //Limpa o buffer
-				j.BuscarJogador(codJog).setNumGols(gols);
+				j.BuscarJogador(codJog).setNumGols(gols); //Seta o npumero de gols do jogador no DAO jogador
 				System.out.println("Edição feita com sucesso!");
 				break;
-			default:
+			default: //Caso não tenha escolhido nenhuma das opções...
 				System.out.println("Você não digitou nenhuma das opções!!!");
 				break;
 			}
@@ -314,18 +319,18 @@ public class Main extends Application {
 	
 	public static void removerSelecao(JogadorDAO j, SelecaoDAO s, TecnicoDAO t) {
 		
-		listarSelecoes(s);
+		listarSelecoes(s); //Lista todas as seleções para que o usuário veja quais seleções podem ser removidas
 		System.out.println("Digite o código da seleção que deseja remover, sabendo que ao remover uma seleção, estará removendo seus componentes!");
 		System.out.println("Código:");
-		int cod = leitor.nextInt();
-		leitor.nextLine();
-		if(s.BuscarSelecao(cod) != null) {
+		int cod = leitor.nextInt(); //Recebe o código da seleção a ser removida
+		leitor.nextLine(); //Limpa o buffer
+		if(s.BuscarSelecao(cod) != null) { //Se a seleção existir...
 			for(int i: s.CodJogadoresSelecao(cod)) {
-				j.RemoverJogador(i);
+				j.RemoverJogador(i); //Remove todos os jogadores pertencentes a ela que estão salvos no sistema
 			}
-			t.RemoverTecnico(s.BuscarSelecao(cod).getCodTec());
-			s.RemoverSelecao(cod);
-		}else {
+			t.RemoverTecnico(s.BuscarSelecao(cod).getCodTec()); //Remove do sistema o técnico atrelado à seleção
+			s.RemoverSelecao(cod); //Por fim, remove a seleção
+		}else { //Se a seleção não existe
 			System.out.println("Você digitou um código inválido!!!");
 		}
 		System.out.println("Seleção removida com sucesso!");
