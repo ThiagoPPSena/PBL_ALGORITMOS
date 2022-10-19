@@ -358,12 +358,6 @@ public class Main extends Application {
 		int entrada;
 		boolean loop = true;
 		
-		//Instanciandos os objetos DAO
-		JogadorDAO j = new JogadorDAO();
-		SelecaoDAO s = new SelecaoDAO();
-		TecnicoDAO t = new TecnicoDAO();
-		ArbitroDAO a = new ArbitroDAO();
-		
 		System.out.println("Bem-vindo ao SysCopa! Este é o seu menu\n");
 		
 		//Loop do menu
@@ -376,7 +370,7 @@ public class Main extends Application {
 			switch(entrada) {
 			case 1: //Caso o usuário digite 1
 				//Se a lista com seleções não estiver vazia
-				if(!s.ListaSelecao().isEmpty()) {
+				if(!selecaoDAO.ListaSelecao().isEmpty()) {
 					System.out.println("Digite o número correspondente à ação que deseja tomar");
 					System.out.println("1-Criar Seleção\n2-Editar Seleção\n3-Remover Seleção\n4-Listar Seleções");
 					System.out.println("Opção:");
@@ -405,7 +399,7 @@ public class Main extends Application {
 				break;
 			case 2:
 				//Se a lista com árbitros não estiver vazia
-				if(!a.ListaArbitro().isEmpty()) {
+				if(!arbitroDAO.ListaArbitro().isEmpty()) {
 					System.out.println("Digite o número correspondente à ação que deseja tomar");
 					System.out.println("1-Criar árbitro\n2-Editar árbitro\n3-Remover árbitro\n4-Listar árbitros");
 					entrada = leitor.nextInt(); //Recebe a entrada do usuário
