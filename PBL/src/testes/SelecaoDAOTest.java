@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import application.model.Jogador;
 import application.model.Selecao;
 import application.model.SelecaoDAO;
+import execoes.LimiteSelecoesException;
 
 class SelecaoDAOTest {
 
@@ -21,7 +22,7 @@ class SelecaoDAOTest {
 	private static Selecao selecao4 = new Selecao("França");
 	
 	@Test
-	public void testBuscarSelecao() {
+	public void testBuscarSelecao() throws LimiteSelecoesException {
 		//Buscando um objeto que está armazenado no DAO (Logo, deve-se retornar o objeto).
 		SelecaoDAO selecaoDAO = new SelecaoDAO();
 		selecaoDAO.InserirSelecao(selecao1);
@@ -34,7 +35,7 @@ class SelecaoDAOTest {
 	}
 	
 	@Test
-	public void testInserirSelecao() {
+	public void testInserirSelecao() throws LimiteSelecoesException {
 		//Inserindo apenas 1 objeto (Logo, o tamanho da coleção desses objetos deve ser igual a 1).
 		SelecaoDAO selecaoDAO = new SelecaoDAO();
 		selecaoDAO.InserirSelecao(selecao1);
@@ -54,7 +55,7 @@ class SelecaoDAOTest {
 	}
 
 	@Test
-	public void testRemoverSelecao() {
+	public void testRemoverSelecao() throws LimiteSelecoesException {
 		//Removendo objeto que não está armazenado no DAO (Logo, deve-se retornar null).
 		SelecaoDAO selecaoDAO = new SelecaoDAO();
 		Selecao retorno = selecaoDAO.RemoverSelecao(selecao1.getCodSel());
@@ -71,7 +72,7 @@ class SelecaoDAOTest {
 	}
 	
 	@Test
-	public void testCodJogadoresSelecao() {
+	public void testCodJogadoresSelecao() throws LimiteSelecoesException {
 		SelecaoDAO selecaoDAO = new SelecaoDAO();
 		selecaoDAO.InserirSelecao(selecao1);
 		Jogador jogador1 = new Jogador("Alisson", "Goleiro");
@@ -101,7 +102,7 @@ class SelecaoDAOTest {
 	}
 	
 	@Test
-	public void testListaSelecao() {
+	public void testListaSelecao() throws LimiteSelecoesException {
 		SelecaoDAO selecaoDAO = new SelecaoDAO();
 		
 		//Chamando a função sem nenhum objeto na lista.

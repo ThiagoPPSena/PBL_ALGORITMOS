@@ -2,9 +2,9 @@ package application.model;
 
 public class JogPartida {
 	
-	int codJogador;
-	int gols;
-	int cartoes[] = new int[2];
+	private int codJogador;
+	private int gols;
+	private int cartoes[] = new int[2];
 	
 	public JogPartida(int codJogador, int gols, int cartoes[]) {
 		this.codJogador = codJogador;

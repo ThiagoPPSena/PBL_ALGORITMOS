@@ -1,18 +1,20 @@
 package application.model;
 
+import java.util.Calendar;
+
 public class Partida {
 	
-	static int cod = 0;
-	int codPartida; 
-	int codArbitro;
-	int data[] = new int[3];
-	int horario[] = new int[2];
-	String local;
-	int codTime1;
-	int codTime2;
-	int golsTime1;
-	int golsTime2;
-	JogPartida jogadores[] = new JogPartida[22];
+	private static int cod = 0;
+	private int codPartida; 
+	private int codArbitro;
+	private Calendar data = Calendar.getInstance();
+	private int horario[] = new int[2];
+	private String local;
+	private int codTime1;
+	private int codTime2;
+	private int golsTime1;
+	private int golsTime2;
+	private JogPartida jogadores[] = new JogPartida[22];
 	
 	public Partida() {
 		this.codPartida = cod;
@@ -39,12 +41,12 @@ public class Partida {
 		return codPartida;
 	}
 
-	public int[] getData() {
+	public Calendar getData() {
 		return data;
 	}
 
-	public void setData(int[] data) {
-		this.data = data;
+	public void setData(int ano, int mes, int dia) {
+		this.data.set(ano, mes, dia);
 	}
 
 	public int[] getHorario() {
@@ -94,6 +96,5 @@ public class Partida {
 	public void setGolsTime2(int golsTime2) {
 		this.golsTime2 = golsTime2;
 	}
-	
 	
 }

@@ -1,13 +1,17 @@
 package application.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Grupo {
 	
-	static int cod = 0;
-	int codGrupo;
-	int selecoes[] = new int[4];
-	Partida partidas[] = new Partida[6];
+	private static int cod = 0;
+	private int codGrupo;
+	private List<Integer> selecoes = new ArrayList<Integer>();
+	private Partida partidas[] = new Partida[6];
+	private int pontuacoes[] = new int[4];
 	
-	public Grupo(int selecoes[]) {
+	public Grupo(List<Integer> selecoes) {
 		this.selecoes = selecoes;
 		this.codGrupo = cod;
 		cod++;
@@ -21,11 +25,11 @@ public class Grupo {
 		return codGrupo;
 	}
 
-	public int[] getSelecoes() {
+	public List<Integer> getSelecoes() {
 		return selecoes;
 	}
 
-	public void setSelecoes(int[] selecoes) {
+	public void setSelecoes(List<Integer> selecoes) {
 		this.selecoes = selecoes;
 	}
 

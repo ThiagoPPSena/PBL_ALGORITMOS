@@ -2,6 +2,8 @@ package application.model;
 
 import java.util.*;
 
+import execoes.LimiteSelecoesException;
+
 public interface InterfaceSelecao {
 	
 	/**
@@ -17,7 +19,7 @@ public interface InterfaceSelecao {
      *
      * @param Sel objeto do tipo Selecao
      */
-	public void InserirSelecao(Selecao Sel);
+	public void InserirSelecao(Selecao Sel) throws LimiteSelecoesException;
 	
 	/**
      * Remove um objeto do tipo Selecao de uma lista específica, e retorna-o.

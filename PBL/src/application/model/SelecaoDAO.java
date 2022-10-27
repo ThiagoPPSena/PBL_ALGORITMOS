@@ -2,6 +2,8 @@ package application.model;
 
 import java.util.*;
 
+import execoes.LimiteSelecoesException;
+
 public class SelecaoDAO implements InterfaceSelecao{
 	
 	private Map<Integer, Selecao> ColecaoSelecao = new HashMap<Integer, Selecao>();
@@ -10,8 +12,12 @@ public class SelecaoDAO implements InterfaceSelecao{
 		return this.ColecaoSelecao.get(codSel);
 	}
 	
-	public void InserirSelecao(Selecao sel) {
-		this.ColecaoSelecao.put(sel.getCodSel(), sel);
+	public void InserirSelecao(Selecao sel) throws LimiteSelecoesException {
+		if (this.ColecaoSelecao.size() < 32) {
+			this.ColecaoSelecao.put(sel.getCodSel(), sel);
+		}else {
+			throw new LimiteSelecoesException();
+		}
 	}
 	
 	public Selecao RemoverSelecao(int codSel) {
@@ -22,7 +28,7 @@ public class SelecaoDAO implements InterfaceSelecao{
 		return BuscarSelecao(codSel).getListaCodJog();
 	}
 	
-	public Map<Integer, Selecao> ListaSelecao(){
+	public Map<Integer, Selecao> ListaSelecao() {
 		return this.ColecaoSelecao;
 	}
 }

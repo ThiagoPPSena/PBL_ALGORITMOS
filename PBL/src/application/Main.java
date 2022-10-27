@@ -15,12 +15,15 @@ import java.util.*;
 
 import application.model.Arbitro;
 import application.model.ArbitroDAO;
+import application.model.FaseGrupo;
 import application.model.Jogador;
 import application.model.JogadorDAO;
 import application.model.Selecao;
 import application.model.SelecaoDAO;
 import application.model.Tecnico;
 import application.model.TecnicoDAO;
+import execoes.LimiteSelecoesException;
+import execoes.QuantidadeSelecoesIncompletaException;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -30,10 +33,11 @@ import javafx.fxml.FXMLLoader;
 public class Main extends Application {
 	
 	static Scanner leitor = new Scanner(System.in); //Objeto para entrada de dados
-	static ArbitroDAO arbitroDAO;
-	static JogadorDAO jogadorDAO;
-	static SelecaoDAO selecaoDAO;
-	static TecnicoDAO tecnicoDAO;
+	static FaseGrupo faseGrupo = new FaseGrupo();
+	static ArbitroDAO arbitroDAO = new ArbitroDAO();
+	static JogadorDAO jogadorDAO = new JogadorDAO();
+	static SelecaoDAO selecaoDAO = new SelecaoDAO();
+	static TecnicoDAO tecnicoDAO = new TecnicoDAO();
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -185,44 +189,49 @@ public class Main extends Application {
 		System.out.println("Qual seleção deseja criar? (Digite o nome)");
 		nome = leitor.nextLine(); //Recebe o nome da seleção
 		Selecao sel = new Selecao(nome); //Instancia um objeto Selecao
-		System.out.println("Agora digite os dados dos 11 jogadores da selecao:");
-		for(int i=1; i<12; i++) { //Cria os 11 jogadores da selecao
-			System.out.println("Dados do "+i+"º jogador:");
-			System.out.println("Nome:");
-			nome = leitor.nextLine(); //Recebe o nome do jogador
-			System.out.println("Posição (1-Goleiro; 2-Zagueiro; 3-Meia; 4-Atacante):");
-			posicao = leitor.nextInt(); //Recebe um inteiro que simboliza sua posicao
-			leitor.nextLine(); //Limpa o buffer
-			switch(posicao) {
-			case 1: //Se digitou 1, sua posição é goleiro
-				posicaoString = "Goleiro";
-				break;
-			case 2: //Se digitou 2, sua posição é zagueiro
-				posicaoString = "Zagueiro";
-				break;
-			case 3: //Se digitou 3, sua posição é meia
-				posicaoString = "Meia";
-				break;
-			case 4: //Se digitou 4, sua posição é atacante
-				posicaoString = "Atacante";
-				break;
-			default: //Se não for digitado nenhum dos inteiros esperados
-				System.out.println("Você digitou um valor inválido, a posição dele vai ser colocada como vazia. Altere-a futuramente!");
-				posicaoString = "";
-				break;
+		try {
+			selecaoDAO.InserirSelecao(sel); //Insere a seleção já criada na lista do DAO selecao
+			System.out.println("Agora digite os dados dos 11 jogadores da selecao:");
+			for(int i=1; i<12; i++) { //Cria os 11 jogadores da selecao
+				System.out.println("Dados do "+i+"º jogador:");
+				System.out.println("Nome:");
+				nome = leitor.nextLine(); //Recebe o nome do jogador
+				System.out.println("Posição (1-Goleiro; 2-Zagueiro; 3-Meia; 4-Atacante):");
+				posicao = leitor.nextInt(); //Recebe um inteiro que simboliza sua posicao
+				leitor.nextLine(); //Limpa o buffer
+				switch(posicao) {
+				case 1: //Se digitou 1, sua posição é goleiro
+					posicaoString = "Goleiro";
+					break;
+				case 2: //Se digitou 2, sua posição é zagueiro
+					posicaoString = "Zagueiro";
+					break;
+				case 3: //Se digitou 3, sua posição é meia
+					posicaoString = "Meia";
+					break;
+				case 4: //Se digitou 4, sua posição é atacante
+					posicaoString = "Atacante";
+					break;
+				default: //Se não for digitado nenhum dos inteiros esperados
+					System.out.println("Você digitou um valor inválido, a posição dele vai ser colocada como vazia. Altere-a futuramente!");
+					posicaoString = "";
+					break;
+				}
+				Jogador jog = new Jogador(nome, posicaoString); //Instancia um novo objeto Jogador
+				jogadorDAO.InserirJogador(jog); //Insere no DAO de jogador
+				selecaoDAO.BuscarSelecao(sel.getCodSel()).getListaCodJog().add(jog.getCodJog()); //Adiciona seu código à sua respectiva seleção
+				System.out.println("\n\nJogador cadastrado com sucesso!!!\n");
 			}
-			Jogador jog = new Jogador(nome, posicaoString); //Instancia um novo objeto Jogador
-			jogadorDAO.InserirJogador(jog); //Insere no DAO de jogador
-			sel.getListaCodJog().add(jog.getCodJog()); //Adiciona seu código à sua respectiva seleção
-			System.out.println("\n\nJogador cadastrado com sucesso!!!\n");
+			System.out.println("Agora digite nome do técnico:");
+			nome = leitor.nextLine(); //Recebe o nome do técnico da seleção
+			Tecnico tec = new Tecnico(nome); //Instancia um novo objeto Tecnico
+			tecnicoDAO.InserirTecnico(tec); //Insere no DAO  de tecnico
+			selecaoDAO.BuscarSelecao(sel.getCodSel()).setCodTec(tec.getCodTec()); //Adiciona seu código à sua respectiva seleção
+			
+			System.out.println("\n\nSeleção cadastrada com sucesso!!!\n");
+		}catch(LimiteSelecoesException except) {
+			System.out.println(except.getMessage());
 		}
-		System.out.println("Agora digite nome do técnico:");
-		nome = leitor.nextLine(); //Recebe o nome do técnico da seleção
-		Tecnico tec = new Tecnico(nome); //Instancia um novo objeto Tecnico
-		tecnicoDAO.InserirTecnico(tec); //Insere no DAO  de tecnico
-		sel.setCodTec(tec.getCodTec()); //Adiciona seu código à sua respectiva seleção
-		selecaoDAO.InserirSelecao(sel); //Insere a seleção já criada na lista do DAO selecao
-		System.out.println("\n\nSeleção cadastrada com sucesso!!!\n");
 		
 	}
 	
@@ -364,7 +373,7 @@ public class Main extends Application {
 		while(loop) {
 			System.out.println("Escolha qual ação deseja tomar:");
 			//Denrtro de seleção, pode-se manipular os seus jogadores e seu técnico
-			System.out.println("1-Manipular seleção, seus jogadores e técnico\n2-Manipular árbitro\n3-Listar técnicos\n4-Listar jogadores\n5-Sair");
+			System.out.println("1-Manipular seleção, seus jogadores e técnico\n2-Manipular árbitro\n3-Listar técnicos\n4-Listar jogadores\n5-Iniciar fase de grupos\n6-Sair");
 			entrada = leitor.nextInt();
 			leitor.nextLine(); //Limpa o buffer
 			switch(entrada) {
@@ -430,6 +439,14 @@ public class Main extends Application {
 				break;
 			case 4: //Para listar os jogadores da copa
 				listarJogadores();
+				break;
+			case 5: //Para iniciar a fase de grupos
+				faseGrupo.updateSelecoes(selecaoDAO.ListaSelecao());
+				try {
+					faseGrupo.iniciarFase();
+				}catch(QuantidadeSelecoesIncompletaException except) {
+					System.out.println(except.getMessage());
+				}
 				break;
 			default:
 				//Encerra o menu e sai do loop
