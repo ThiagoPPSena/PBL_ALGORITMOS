@@ -361,97 +361,197 @@ public class Main extends Application {
 		}
 		
 	}
+	
+	//Função que exibe um menu de opções ao usuário.
+	//Menu antes do início da fase de grupos.
+	public static boolean menu1() {
+		int entrada;
+		boolean continuar = true;
+		
+		System.out.println("Escolha qual ação deseja tomar:");
+		//Denrtro de seleção, pode-se manipular os seus jogadores e seu técnico
+		System.out.println("1-Manipular seleção, seus jogadores e técnico\n2-Manipular árbitro\n3-Listar técnicos\n4-Listar jogadores\n5-Iniciar fase de grupos\n6-Sair");
+		entrada = leitor.nextInt();
+		leitor.nextLine(); //Limpa o buffer
+		switch(entrada) {
+		case 1: //Caso o usuário digite 1
+			//Se a lista com seleções não estiver vazia
+			if(!selecaoDAO.ListaSelecao().isEmpty()) {
+				System.out.println("Digite o número correspondente à ação que deseja tomar");
+				System.out.println("1-Criar Seleção\n2-Editar Seleção\n3-Remover Seleção\n4-Listar Seleções");
+				System.out.println("Opção:");
+				entrada = leitor.nextInt(); //Recebe entrada do usuário
+				leitor.nextLine(); //Limpando Buffer
+				switch(entrada) {
+				case 1: //Caso queira criar seleção
+					criarSelecao();
+					break;
+				case 2: //Editar seleção
+					editarSelecao();
+					break;
+				case 3:
+					removerSelecao();
+					break;
+				case 4: //Caso seja escolhido listar seleções
+					listarSelecoesOuComponentes();
+					break;
+				default:
+					System.out.println("Você digitou um valor inválido");
+					break;
+				}
+			}else { //Se não tiver nenhuma seleção cadastrada, cadastrar uma
+				criarSelecao();
+			}
+			break;
+		case 2:
+			//Se a lista com árbitros não estiver vazia
+			if(!arbitroDAO.ListaArbitro().isEmpty()) {
+				System.out.println("Digite o número correspondente à ação que deseja tomar");
+				System.out.println("1-Criar árbitro\n2-Editar árbitro\n3-Remover árbitro\n4-Listar árbitros");
+				entrada = leitor.nextInt(); //Recebe a entrada do usuário
+				leitor.nextLine(); //Limpa buffer
+				switch(entrada) {
+				case 1: //Se quiser criar árbitro
+					criarArbitro();
+					break;
+				case 2: //Se quiser editar árbitro
+					editarArbitro();
+					break;
+				case 3: //Se quiser remover árbitro
+					removerArbitro();
+					break;
+				case 4: //Se quiser listar os árbitros
+					listarArbitros();
+					break;
+				default: //Se não escolher nenhuma das opções
+					System.out.println("Você escolheu nenhuma das quatro opções");
+					break;
+				}
+			}else { //Se a lista com árbitros estiver vazia
+				criarArbitro();
+			}
+			break;
+		case 3: //Para listar os técnicos da copa
+			listarTecnicos();
+			break;
+		case 4: //Para listar os jogadores da copa
+			listarJogadores();
+			break;
+		case 5: //Para iniciar a fase de grupos
+			faseGrupo.updateSelecoes(selecaoDAO.ListaSelecao());
+			try {
+				faseGrupo.iniciarFase();
+			}catch(QuantidadeSelecoesIncompletaException except) {
+				System.out.println(except.getMessage());
+			}
+			break;
+		default:
+			//Encerra o menu e sai do loop
+			continuar = false;
+			break;
+		}
+		return continuar;
+	}
+
+	//Função que exibe um menu de opções ao usuário.
+	//Menu após o início da fase de grupos.
+	public static boolean menu2() {
+		int entrada;
+		boolean continuar = true;
+		
+		System.out.println("Escolha qual ação deseja tomar:");
+		//Denrtro de seleção, pode-se manipular os seus jogadores e seu técnico
+		System.out.println("1-Manipular seleção, seus jogadores e técnico\n2-Manipular árbitro\n3-Listar técnicos\n4-Listar jogadores\n5-Encerrar fase de grupos\n6-Sair");
+		entrada = leitor.nextInt();
+		leitor.nextLine(); //Limpa o buffer
+		switch(entrada) {
+		case 1: //Caso o usuário digite 1
+			//Se a lista com seleções não estiver vazia
+			if(!selecaoDAO.ListaSelecao().isEmpty()) {
+				System.out.println("Digite o número correspondente à ação que deseja tomar");
+				System.out.println("1-Criar Seleção\n2-Editar Seleção\n3-Remover Seleção\n4-Listar Seleções");
+				System.out.println("Opção:");
+				entrada = leitor.nextInt(); //Recebe entrada do usuário
+				leitor.nextLine(); //Limpando Buffer
+				switch(entrada) {
+				case 1: //Caso queira criar seleção
+					criarSelecao();
+					break;
+				case 2: //Editar seleção
+					editarSelecao();
+					break;
+				case 3:
+					removerSelecao();
+					break;
+				case 4: //Caso seja escolhido listar seleções
+					listarSelecoesOuComponentes();
+					break;
+				default:
+					System.out.println("Você digitou um valor inválido");
+					break;
+				}
+			}else { //Se não tiver nenhuma seleção cadastrada, cadastrar uma
+				criarSelecao();
+			}
+			break;
+		case 2:
+			//Se a lista com árbitros não estiver vazia
+			if(!arbitroDAO.ListaArbitro().isEmpty()) {
+				System.out.println("Digite o número correspondente à ação que deseja tomar");
+				System.out.println("1-Criar árbitro\n2-Editar árbitro\n3-Remover árbitro\n4-Listar árbitros");
+				entrada = leitor.nextInt(); //Recebe a entrada do usuário
+				leitor.nextLine(); //Limpa buffer
+				switch(entrada) {
+				case 1: //Se quiser criar árbitro
+					criarArbitro();
+					break;
+				case 2: //Se quiser editar árbitro
+					editarArbitro();
+					break;
+				case 3: //Se quiser remover árbitro
+					removerArbitro();
+					break;
+				case 4: //Se quiser listar os árbitros
+					listarArbitros();
+					break;
+				default: //Se não escolher nenhuma das opções
+					System.out.println("Você escolheu nenhuma das quatro opções");
+					break;
+				}
+			}else { //Se a lista com árbitros estiver vazia
+				criarArbitro();
+			}
+			break;
+		case 3: //Para listar os técnicos da copa
+			listarTecnicos();
+			break;
+		case 4: //Para listar os jogadores da copa
+			listarJogadores();
+			break;
+		case 5: //Para encerrar a fase de grupos
+			faseGrupo.updateSelecoes(selecaoDAO.ListaSelecao());
+			faseGrupo.encerrarFase();
+			break;
+		default:
+			//Encerra o menu e sai do loop
+			continuar = false;
+			break;
+		}
+		return continuar;
+	}
 
 	public static void main(String[] args) {
 		//launch(args);
-		int entrada;
 		boolean loop = true;
 		
 		System.out.println("Bem-vindo ao SysCopa! Este é o seu menu\n");
 		
-		//Loop do menu
+		//Loop dos menus
 		while(loop) {
-			System.out.println("Escolha qual ação deseja tomar:");
-			//Denrtro de seleção, pode-se manipular os seus jogadores e seu técnico
-			System.out.println("1-Manipular seleção, seus jogadores e técnico\n2-Manipular árbitro\n3-Listar técnicos\n4-Listar jogadores\n5-Iniciar fase de grupos\n6-Sair");
-			entrada = leitor.nextInt();
-			leitor.nextLine(); //Limpa o buffer
-			switch(entrada) {
-			case 1: //Caso o usuário digite 1
-				//Se a lista com seleções não estiver vazia
-				if(!selecaoDAO.ListaSelecao().isEmpty()) {
-					System.out.println("Digite o número correspondente à ação que deseja tomar");
-					System.out.println("1-Criar Seleção\n2-Editar Seleção\n3-Remover Seleção\n4-Listar Seleções");
-					System.out.println("Opção:");
-					entrada = leitor.nextInt(); //Recebe entrada do usuário
-					leitor.nextLine(); //Limpando Buffer
-					switch(entrada) {
-					case 1: //Caso queira criar seleção
-						criarSelecao();
-						break;
-					case 2: //Editar seleção
-						editarSelecao();
-						break;
-					case 3:
-						removerSelecao();
-						break;
-					case 4: //Caso seja escolhido listar seleções
-						listarSelecoesOuComponentes();
-						break;
-					default:
-						System.out.println("Você digitou um valor inválido");
-						break;
-					}
-				}else { //Se não tiver nenhuma seleção cadastrada, cadastrar uma
-					criarSelecao();
-				}
-				break;
-			case 2:
-				//Se a lista com árbitros não estiver vazia
-				if(!arbitroDAO.ListaArbitro().isEmpty()) {
-					System.out.println("Digite o número correspondente à ação que deseja tomar");
-					System.out.println("1-Criar árbitro\n2-Editar árbitro\n3-Remover árbitro\n4-Listar árbitros");
-					entrada = leitor.nextInt(); //Recebe a entrada do usuário
-					leitor.nextLine(); //Limpa buffer
-					switch(entrada) {
-					case 1: //Se quiser criar árbitro
-						criarArbitro();
-						break;
-					case 2: //Se quiser editar árbitro
-						editarArbitro();
-						break;
-					case 3: //Se quiser remover árbitro
-						removerArbitro();
-						break;
-					case 4: //Se quiser listar os árbitros
-						listarArbitros();
-						break;
-					default: //Se não escolher nenhuma das opções
-						System.out.println("Você escolheu nenhuma das quatro opções");
-						break;
-					}
-				}else { //Se a lista com árbitros estiver vazia
-					criarArbitro();
-				}
-				break;
-			case 3: //Para listar os técnicos da copa
-				listarTecnicos();
-				break;
-			case 4: //Para listar os jogadores da copa
-				listarJogadores();
-				break;
-			case 5: //Para iniciar a fase de grupos
-				faseGrupo.updateSelecoes(selecaoDAO.ListaSelecao());
-				try {
-					faseGrupo.iniciarFase();
-				}catch(QuantidadeSelecoesIncompletaException except) {
-					System.out.println(except.getMessage());
-				}
-				break;
-			default:
-				//Encerra o menu e sai do loop
-				loop = false;
-				break;
+			if (faseGrupo.isFaseIniciada() == false) {
+				loop = menu1();
+			}else {
+				loop = menu2();
 			}
 		}
 		System.out.println("Obrigado por usar o SysCopa!!!");

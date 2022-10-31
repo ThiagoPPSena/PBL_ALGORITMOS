@@ -10,6 +10,7 @@ public class FaseGrupo {
 
 	private Grupo grupos[] = new Grupo[8];
 	private List<Integer> selecoes = new ArrayList<Integer>();
+	private boolean faseIniciada = false;
 
 	public FaseGrupo() {
 		
@@ -25,6 +26,7 @@ public class FaseGrupo {
 		
 		if (this.selecoes.size() == 32) {
 		
+			this.faseIniciada = true;
 			this.grupos[0] = new Grupo(this.selecoes.subList(0, 3));
 			this.grupos[1] = new Grupo(this.selecoes.subList(4, 7));
 			this.grupos[2] = new Grupo(this.selecoes.subList(8, 11));
@@ -41,5 +43,9 @@ public class FaseGrupo {
 	public int[] encerrarFase() {
 		//Retornar seleções que passaram.
 		return null;
+	}
+
+	public boolean isFaseIniciada() {
+		return faseIniciada;
 	}
 }
