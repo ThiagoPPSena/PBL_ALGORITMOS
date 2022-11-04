@@ -17,6 +17,10 @@ public class FaseGrupo {
 		
 	}
 	
+	public boolean isFaseIniciada() {
+		return faseIniciada;
+	}
+	
 	public void updateSelecoes(Map<Integer, Selecao> selecoes) {
 		for (int key: selecoes.keySet()) {
 			this.selecoes.add(key);
@@ -43,11 +47,39 @@ public class FaseGrupo {
 		}else {
 			throw new MinimoArbitrosException();
 		}
-		
 	}
-
-	public boolean isFaseIniciada() {
-		return faseIniciada;
+	
+	public List<Integer> encerrarFase() {
+		List<Integer> selecoesPassaram = new ArrayList<Integer>();
+		int pontos1, pontos2, index1, index2;
+		
+		for (int i = 0; i < 8; i++) {
+			pontos1 = -1;
+			pontos2 = -1;
+			index1 = 0;
+			index2 = 0;
+			this.grupos[i].updatePontos();
+			
+			//Pegar as duas seleções com maior pontuação.
+			//Pegando a primeira:
+			for (int j = 0; j < 4; j++) {
+				if(this.grupos[i].getPontuacoes()[j] > pontos1) {
+					pontos1 = this.grupos[i].getPontuacoes()[j];
+					index1 = j;
+				}
+			}
+			selecoesPassaram.add(this.grupos[i].getSelecoes().get(index1));
+			
+			//Pegando a segunda:
+			for (int j = 0; j < 4; j++) {
+				if(this.grupos[i].getPontuacoes()[j] >= pontos2 && j != index1) {
+					pontos2 = this.grupos[i].getPontuacoes()[j];
+					index2 = j;
+				}
+			}
+			selecoesPassaram.add(this.grupos[i].getSelecoes().get(index2));
+		}
+		return selecoesPassaram;
 	}
 	
 	public Grupo[] getGrupos() {
