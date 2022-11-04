@@ -36,4 +36,34 @@ public class Grupo {
 	public Partida[] getPartidas() {
 		return partidas;
 	}
+	
+	public int[] getPontuacoes() {
+		return pontuacoes;
+	}
+
+	public void updatePontos() {
+		for (int i = 0; i < 6; i++) {
+			if (this.partidas[i].getGolsTime1() > this.partidas[i].getGolsTime2()) {
+				for (int j = 0; j < 4; j++) {
+					if (this.selecoes.get(j) == this.partidas[i].getCodTime1()) {
+						this.pontuacoes[j] += 3;
+						break;
+					}
+				}
+			}else if (this.partidas[i].getGolsTime1() < this.partidas[i].getGolsTime2()) {
+				for (int j = 0; j < 4; j++) {
+					if (this.selecoes.get(j) == this.partidas[i].getCodTime2()) {
+						this.pontuacoes[j] += 3;
+						break;
+					}
+				}
+			}else {
+				for (int j = 0; j < 4; j++) {
+					if (this.selecoes.get(j) == this.partidas[i].getCodTime1() || this.selecoes.get(j) == this.partidas[i].getCodTime2()) {
+						this.pontuacoes[j] += 1;
+					}
+				}
+			}
+		}
+	}
 }

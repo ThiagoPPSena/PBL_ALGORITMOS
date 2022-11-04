@@ -466,60 +466,38 @@ public class Main extends Application {
 		leitor.nextLine(); //Limpa o buffer
 		switch(entrada) {
 		case 1: //Caso o usuário digite 1
-			//Se a lista com seleções não estiver vazia
-			if(!selecaoDAO.ListaSelecao().isEmpty()) {
-				System.out.println("Digite o número correspondente à ação que deseja tomar");
-				System.out.println("1-Criar Seleção\n2-Editar Seleção\n3-Remover Seleção\n4-Listar Seleções");
-				System.out.println("Opção:");
-				entrada = leitor.nextInt(); //Recebe entrada do usuário
-				leitor.nextLine(); //Limpando Buffer
-				switch(entrada) {
-				case 1: //Caso queira criar seleção
-					criarSelecao();
-					break;
-				case 2: //Editar seleção
-					editarSelecao();
-					break;
-				case 3:
-					removerSelecao();
-					break;
-				case 4: //Caso seja escolhido listar seleções
-					listarSelecoesOuComponentes();
-					break;
-				default:
-					System.out.println("Você digitou um valor inválido");
-					break;
-				}
-			}else { //Se não tiver nenhuma seleção cadastrada, cadastrar uma
-				criarSelecao();
+			System.out.println("Digite o número correspondente à ação que deseja tomar");
+			System.out.println("1-Editar Seleção\n2-Listar Seleções");
+			System.out.println("Opção:");
+			entrada = leitor.nextInt(); //Recebe entrada do usuário
+			leitor.nextLine(); //Limpando Buffer
+			switch(entrada) {
+			case 1: //Caso seja escolhido Editar seleção
+				editarSelecao();
+				break;
+			case 2: //Caso seja escolhido Listar seleções
+				listarSelecoesOuComponentes();
+				break;
+			default:
+				System.out.println("Você digitou um valor inválido");
+				break;
 			}
 			break;
 		case 2:
-			//Se a lista com árbitros não estiver vazia
-			if(!arbitroDAO.ListaArbitro().isEmpty()) {
-				System.out.println("Digite o número correspondente à ação que deseja tomar");
-				System.out.println("1-Criar árbitro\n2-Editar árbitro\n3-Remover árbitro\n4-Listar árbitros");
-				entrada = leitor.nextInt(); //Recebe a entrada do usuário
-				leitor.nextLine(); //Limpa buffer
-				switch(entrada) {
-				case 1: //Se quiser criar árbitro
-					criarArbitro();
-					break;
-				case 2: //Se quiser editar árbitro
-					editarArbitro();
-					break;
-				case 3: //Se quiser remover árbitro
-					removerArbitro();
-					break;
-				case 4: //Se quiser listar os árbitros
-					listarArbitros();
-					break;
-				default: //Se não escolher nenhuma das opções
-					System.out.println("Você escolheu nenhuma das quatro opções");
-					break;
-				}
-			}else { //Se a lista com árbitros estiver vazia
-				criarArbitro();
+			System.out.println("Digite o número correspondente à ação que deseja tomar");
+			System.out.println("1-Editar árbitro\n2-Listar árbitros");
+			entrada = leitor.nextInt(); //Recebe a entrada do usuário
+			leitor.nextLine(); //Limpa buffer
+			switch(entrada) {
+			case 1: //Se quiser editar árbitro
+				editarArbitro();
+				break;
+			case 2: //Se quiser listar os árbitros
+				listarArbitros();
+				break;
+			default: //Se não escolher nenhuma das opções
+				System.out.println("Você escolheu nenhuma das quatro opções");
+				break;
 			}
 			break;
 		case 3: //Para listar os técnicos da copa
