@@ -4,12 +4,14 @@ public class JogPartida {
 	
 	private int codJogador;
 	private int gols;
-	private int cartoes[] = new int[2];
+	private int cartoesAma;
+	private int cartoesVer;
 	
-	public JogPartida(int codJogador, int gols, int cartoes[]) {
-		this.codJogador = codJogador;
-		this.gols = gols;
-		this.cartoes = cartoes;
+	public JogPartida() {
+		this.codJogador = 0;
+		this.gols = 0;
+		this.cartoesAma = 0;
+		this.cartoesVer = 0;
 	}
 
 	public int getCodJogador() {
@@ -28,11 +30,21 @@ public class JogPartida {
 		this.gols = gols;
 	}
 
-	public int[] getCartoes() {
-		return cartoes;
+	public int getCartoesAma() {
+		return cartoesAma;
 	}
 
-	public void setCartoes(int[] cartoes) {
-		this.cartoes = cartoes;
+	public void setCartoesAma(int cartoesAma) {
+		this.cartoesAma = cartoesAma;
 	}
+	
+	public int getCartoesVer() {
+		return cartoesVer;
+	}
+
+	public void setCartoesVer(int cartoesVer) {
+		this.cartoesVer = cartoesVer;
+	}
+	
+
 }

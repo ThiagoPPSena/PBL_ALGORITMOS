@@ -1,6 +1,8 @@
 package application.model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class Partida {
 	
@@ -8,17 +10,23 @@ public class Partida {
 	private int codPartida; 
 	private int codArbitro;
 	private Calendar data = Calendar.getInstance();
-	private int horario[] = new int[2];
+	private String horario;
 	private String local;
 	private int codTime1;
 	private int codTime2;
 	private int golsTime1;
 	private int golsTime2;
-	private JogPartida jogadores[] = new JogPartida[22];
+	private List<JogPartida> jogadores = new ArrayList<JogPartida>();
 	
 	public Partida() {
 		this.codPartida = cod;
 		cod++;
+		this.golsTime1 = 0;
+		this.golsTime2 = 0;
+		for(int i = 0; i < 22; i++) {
+			JogPartida jogador = new JogPartida();
+			jogadores.add(jogador);
+		}
 	}
 
 	public int getCodArbitro() {
@@ -29,11 +37,11 @@ public class Partida {
 		this.codArbitro = codArbitro;
 	}
 
-	public JogPartida[] getJogadores() {
+	public List<JogPartida> getJogadores() {
 		return jogadores;
 	}
 
-	public void setJogadores(JogPartida[] jogadores) {
+	public void setJogadores(List<JogPartida> jogadores) {
 		this.jogadores = jogadores;
 	}
 
@@ -49,11 +57,11 @@ public class Partida {
 		this.data.set(ano, mes, dia);
 	}
 
-	public int[] getHorario() {
+	public String getHorario() {
 		return horario;
 	}
 
-	public void setHorario(int[] horario) {
+	public void setHorario(String horario) {
 		this.horario = horario;
 	}
 
@@ -95,6 +103,14 @@ public class Partida {
 
 	public void setGolsTime2(int golsTime2) {
 		this.golsTime2 = golsTime2;
+	}
+	
+	public JogPartida buscarJogPartida(int cod) {
+		for(JogPartida jogador:jogadores) {
+			if(jogador.getCodJogador() == cod)
+				return jogador;
+		}
+		return null;
 	}
 	
 }

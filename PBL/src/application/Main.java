@@ -16,8 +16,11 @@ import java.util.*;
 import application.model.Arbitro;
 import application.model.ArbitroDAO;
 import application.model.FaseGrupo;
+import application.model.Grupo;
+import application.model.JogPartida;
 import application.model.Jogador;
 import application.model.JogadorDAO;
+import application.model.Partida;
 import application.model.Selecao;
 import application.model.SelecaoDAO;
 import application.model.Tecnico;
@@ -51,7 +54,249 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void criarPartidas() {
+		for(int i=0; i<8; i++) {
+			System.out.println("Digite alguns dados das partidas do grupo "+i);
+			Grupo grupo = faseGrupo.buscarGrupo(i);
+			Partida[] partidas = grupo.getPartidas();
+			for(Partida partida : partidas) {
+				Selecao selecao1 = selecaoDAO.BuscarSelecao(partida.getCodTime1());
+				Selecao selecao2 = selecaoDAO.BuscarSelecao(partida.getCodTime2());
+				List<Integer> listaCodJog_1 = selecao1.getListaCodJog();
+				List<Integer> listaCodJog_2 = selecao2.getListaCodJog();
+				List<Integer> listaCod = new ArrayList<Integer>();
+				List<JogPartida> listaJogPart = new ArrayList<JogPartida>();
+				listaCod.addAll(listaCodJog_1);
+				listaCod.addAll(listaCodJog_2);
+				for(int j=0;j<listaCod.size();j++) {
+					int codigoJog = listaCod.get(j);
+					JogPartida jogador = new JogPartida();
+					jogador.setCodJogador(codigoJog);
+					listaJogPart.add(jogador);
+				}
+				partida.setJogadores(listaJogPart);
+				System.out.println("Partida entre " + selecao1.getNome() + " e " + selecao2.getNome());
+				System.out.println("Digite o local:");
+				String local = leitor.nextLine();
+				partida.setLocal(local);
+				System.out.println("Digite o ano:");
+				int ano = leitor.nextInt();
+				leitor.nextLine();
+				System.out.println("Digite o número do mes (Ex. 1-Janeiro):");
+				int mes = leitor.nextInt();
+				leitor.nextLine();
+				System.out.println("Digite o dia:");
+				int dia = leitor.nextInt();
+				leitor.nextLine();
+				partida.setData(ano, mes, dia);
+				System.out.println("Digite o horário:");
+				String horario = leitor.nextLine();
+				partida.setHorario(horario);
+				System.out.println(
+						"Agora, olhando a lista de árbitros abaixo, digite o código daquele que abitará esta partida");
+				listarArbitros();
+				System.out.println("Código: ");
+				int codArbitro = leitor.nextInt();
+				leitor.nextLine();
+				boolean loop = true;
+				while(loop) {
+					if(arbitroDAO.ListaArbitro().containsKey(codArbitro)) {
+						partida.setCodArbitro(codArbitro);
+						loop = false;
+					}else {
+						System.out.println("Código do árbitro inválido! Digite um código válido");
+						codArbitro = leitor.nextInt();
+						leitor.nextLine();
+					}
+				}
+			}
+		}
+	} 
+	
+	//Função que lista as partidas de um grupo
+	public static void listarPartidas() {
+		
+		System.out.println("Digite o código do grupo que deseja listar as partidas (0-7)");
+		int cod = leitor.nextInt();
+		leitor.nextLine();
+		if (cod >= 0 || cod < 8) {
+			Grupo grupo = faseGrupo.buscarGrupo(cod);
+			for (Partida partida : grupo.getPartidas()) {
+				Selecao selecao1 = selecaoDAO.BuscarSelecao(partida.getCodTime1());
+				Selecao selecao2 = selecaoDAO.BuscarSelecao(partida.getCodTime2());
+				System.out.println("Partida entre " + selecao1.getNome() + " e " + selecao2.getNome() + ":");
+				System.out.println("Placar, respectivamente: "+partida.getGolsTime1()+"X"+partida.getCodTime2());
+				System.out.println("Local: "+partida.getLocal());
+				System.out.println("Horario: "+partida.getHorario());
+				System.out.println("Data: "+partida.getData());
+			}
+		} else {
+			System.out.println("Código inválido!!!");
+		}
 
+	}
+
+	public static void editarPartidas() {
+		List<Integer> listaCodPartidas = new ArrayList<Integer>();
+		System.out.println("Digite o código do grupo (0-7) da partida que deseja editar:");
+		int codGrupo = leitor.nextInt();
+		leitor.nextLine();
+		if (codGrupo >= 0 || codGrupo < 8) {
+			Grupo grupo = faseGrupo.buscarGrupo(codGrupo);
+			for (Partida partida : grupo.getPartidas()) {
+				listaCodPartidas.add(partida.getCodPartida());
+				Selecao selecao1 = selecaoDAO.BuscarSelecao(partida.getCodTime1());
+				Selecao selecao2 = selecaoDAO.BuscarSelecao(partida.getCodTime2());
+				System.out.println(partida.getCodPartida()+" = Partida entre " + selecao1.getNome() + " e " + selecao2.getNome());
+			}
+			System.out.println("Digite o código da partida que deseja editar:");
+			int codPart = leitor.nextInt();
+			leitor.nextLine();
+			if(listaCodPartidas.contains(codPart)) {
+				int indexPart = grupo.buscarPartida(codPart);
+				Partida partida = grupo.getPartidas()[indexPart];
+				System.out.println("Editar partida "+partida.getCodPartida());
+				System.out.println("Caso queira manter a mesma informação, reescreva-a da mesma forma que a anterior");
+				System.out.println("Digite o local editado(local atual: "+partida.getLocal()+")");
+				String local = leitor.nextLine();
+				partida.setLocal(local);
+				System.out.println("Digite a data editada(data atual: "+partida.getData()+")");
+				System.out.println("Digite o ano:");
+				int ano = leitor.nextInt();
+				leitor.nextLine();
+				System.out.println("Digite o número do mes (Ex. 1-Janeiro):");
+				int mes = leitor.nextInt();
+				leitor.nextLine();
+				System.out.println("Digite o dia:");
+				int dia = leitor.nextInt();
+				leitor.nextLine();
+				partida.setData(ano, mes, dia);
+				System.out.println("Digite o horário editado(horário atual: "+partida.getHorario()+")");
+				String horario = leitor.nextLine();
+				partida.setHorario(horario);
+				
+			}else
+				System.out.println("Código inválido!!!");
+				
+		}
+		
+	}
+	
+	
+	public static void editarJogPartida() {
+		List<Integer> listaCodPartidas = new ArrayList<Integer>();
+		System.out.println("Digite o código do grupo (0-7) da partida que deseja editar:");
+		int codGrupo = leitor.nextInt();
+		leitor.nextLine();
+		if (codGrupo >= 0 || codGrupo < 8) {
+			Grupo grupo = faseGrupo.buscarGrupo(codGrupo);
+			for (Partida partida : grupo.getPartidas()) {
+				listaCodPartidas.add(partida.getCodPartida());
+				Selecao selecao1 = selecaoDAO.BuscarSelecao(partida.getCodTime1());
+				Selecao selecao2 = selecaoDAO.BuscarSelecao(partida.getCodTime2());
+				System.out.println(partida.getCodPartida()+" = Partida entre " + selecao1.getNome() + " e " + selecao2.getNome());
+			}
+			System.out.println("Digite o código da partida que deseja editar seus jogadores:");
+			int codPart = leitor.nextInt();
+			leitor.nextLine();
+			if(listaCodPartidas.contains(codPart)) {
+				int indexPart = grupo.buscarPartida(codPart);
+				Partida partida = grupo.getPartidas()[indexPart];
+				System.out.println("Digite o código do jogador que deseja editar:");
+				for(JogPartida jogadorPart:partida.getJogadores()) {
+					int codJogador = jogadorPart.getCodJogador();
+					System.out.println("Código: "+codJogador+";Nome: "+jogadorDAO.BuscarJogador(codJogador).getNome());
+				}
+				int codJogador = leitor.nextInt();
+				leitor.nextLine();
+				JogPartida jogPartida = partida.buscarJogPartida(codJogador);
+				if(jogPartida != null) {
+					System.out.println("Editar jogador "+jogadorDAO.BuscarJogador(codJogador).getNome());
+					System.out.println("Caso queira manter a mesma informação, reescreva-a da mesma forma que a anterior");
+					System.out.println("Digite o número de gols na partida(gols atuais: "+jogPartida.getGols()+")");
+					int gols = leitor.nextInt();
+					leitor.nextLine();
+					jogPartida.setGols(gols);
+					System.out.println("Digite o número de cartões amarelos na partida(cartões atuais: "+jogPartida.getCartoesAma()+")");
+					int cartAma = leitor.nextInt();
+					leitor.nextLine();
+					jogPartida.setCartoesAma(cartAma);
+					System.out.println("Digite o número de cartões vermelhos na partida(cartões atuais: "+jogPartida.getCartoesVer()+")");
+					int cartVer = leitor.nextInt();
+					leitor.nextLine();
+					jogPartida.setCartoesVer(cartVer);
+					
+				}else {
+					System.out.println("O jogador com esse código não pertence a essa partida ou não existe!!!");
+				}
+				
+			}else {
+				System.out.println("A partida com esse código não pertence a esse grupo ou não existe!!!");
+			}
+		}
+	}
+	
+	public static void pesquisarPorData() {
+		System.out.println("Digite uma data: ");
+		System.out.println("Digite o ano:");
+		int ano = leitor.nextInt();
+		leitor.nextLine();
+		System.out.println("Digite o número do mes (Ex. 1-Janeiro):");
+		int mes = leitor.nextInt();
+		leitor.nextLine();
+		System.out.println("Digite o dia:");
+		int dia = leitor.nextInt();
+		leitor.nextLine();
+		Calendar data = Calendar.getInstance();
+		data.set(ano, mes, dia);
+		for(Grupo grupo:faseGrupo.getGrupos()) {
+			for(Partida partida:grupo.getPartidas()) {
+				if(partida.getData() == data) {
+					Selecao selecao1 = selecaoDAO.BuscarSelecao(partida.getCodTime1());
+					Selecao selecao2 = selecaoDAO.BuscarSelecao(partida.getCodTime2());
+					System.out.println(partida.getCodPartida()+" = Partida entre " + selecao1.getNome() + " e " + selecao2.getNome());
+					System.out.println("Local: "+partida.getLocal());
+					System.out.println("Horário: "+partida.getHorario());
+				}
+			}
+		}
+		
+	}
+	
+	public static void pesquisarPorCategoria() {
+		System.out.println("Digite o nome que deseja pesquisar:");
+		String nome = leitor.nextLine();
+		System.out.println("Digite o número correspondente a qual categoria quer pesquisar:");
+		System.out.println("1-Jogador\n2-Técnico\n3-Árbitro");
+		int escolha = leitor.nextInt();
+		leitor.nextLine();
+		switch(escolha) {
+		case 1:
+			for(Jogador jogador:jogadorDAO.ListaJog().values()) {
+				if(jogador.getNome() == nome)
+					System.out.println(jogador);
+			}
+			break;
+		case 2:
+			for(Tecnico tecnico:tecnicoDAO.ListaTecnico().values()) {
+				if(tecnico.getNome() == nome)
+					System.out.println("Código: "+tecnico.getCodTec()+"; Nome: "+tecnico.getNome());
+			}
+			break;
+		case 3:
+			for (Arbitro arbitro : arbitroDAO.ListaArbitro().values()) {
+				if (arbitro.getNome() == nome)
+					System.out.println("Código: " + arbitro.getCodArbitro() + "; Nome: " + arbitro.getNome());
+			}
+			break;
+		default:
+			System.out.println("Você selecionou uma categoria inválida!!!");
+			break;
+			
+		}
+	}
+	
 	//Função de criação de árbitro
 	public static void criarArbitro() {
 		
@@ -192,7 +437,7 @@ public class Main extends Application {
 		try {
 			selecaoDAO.InserirSelecao(sel); //Insere a seleção já criada na lista do DAO selecao
 			System.out.println("Agora digite os dados dos 11 jogadores da selecao:");
-			for(int i=1; i<12; i++) { //Cria os 11 jogadores da selecao
+			for(int i=1; i<2; i++) { //Cria os 11 jogadores da selecao
 				System.out.println("Dados do "+i+"º jogador:");
 				System.out.println("Nome:");
 				nome = leitor.nextLine(); //Recebe o nome do jogador
@@ -440,8 +685,8 @@ public class Main extends Application {
 		case 5: //Para iniciar a fase de grupos
 			faseGrupo.updateSelecoes(selecaoDAO.ListaSelecao());
 			try {
-				faseGrupo.iniciarFase();
-			}catch(QuantidadeSelecoesIncompletaException except) {
+				faseGrupo.iniciarFase(arbitroDAO);
+			}catch(Exception except) {
 				System.out.println(except.getMessage());
 			}
 			break;
@@ -459,67 +704,47 @@ public class Main extends Application {
 		int entrada;
 		boolean continuar = true;
 		
+		criarPartidas();
+		
 		System.out.println("Escolha qual ação deseja tomar:");
 		//Denrtro de seleção, pode-se manipular os seus jogadores e seu técnico
-		System.out.println("1-Manipular seleção, seus jogadores e técnico\n2-Manipular árbitro\n3-Listar técnicos\n4-Listar jogadores\n5-Encerrar fase de grupos\n6-Sair");
+		System.out.println("1-Manipular seleção, seus jogadores e técnico\n2-Manipular árbitro\n3-Listar técnicos\n4-Listar jogadores\n5-Listar partidas de um dos grupos\n6-Encerrar fase de grupos\n7-Sair");
 		entrada = leitor.nextInt();
 		leitor.nextLine(); //Limpa o buffer
 		switch(entrada) {
 		case 1: //Caso o usuário digite 1
-			//Se a lista com seleções não estiver vazia
-			if(!selecaoDAO.ListaSelecao().isEmpty()) {
-				System.out.println("Digite o número correspondente à ação que deseja tomar");
-				System.out.println("1-Criar Seleção\n2-Editar Seleção\n3-Remover Seleção\n4-Listar Seleções");
-				System.out.println("Opção:");
-				entrada = leitor.nextInt(); //Recebe entrada do usuário
-				leitor.nextLine(); //Limpando Buffer
-				switch(entrada) {
-				case 1: //Caso queira criar seleção
-					criarSelecao();
-					break;
-				case 2: //Editar seleção
-					editarSelecao();
-					break;
-				case 3:
-					removerSelecao();
-					break;
-				case 4: //Caso seja escolhido listar seleções
-					listarSelecoesOuComponentes();
-					break;
-				default:
-					System.out.println("Você digitou um valor inválido");
-					break;
-				}
-			}else { //Se não tiver nenhuma seleção cadastrada, cadastrar uma
-				criarSelecao();
+			System.out.println("Digite o número correspondente à ação que deseja tomar");
+			System.out.println("1-Editar Seleção\n2-Listar Seleções");
+			System.out.println("Opção:");
+			entrada = leitor.nextInt(); //Recebe entrada do usuário
+			leitor.nextLine(); //Limpando Buffer
+			switch(entrada) {
+			case 1: //Caso seja escolhido Editar seleção
+				editarSelecao();
+				break;
+			case 2: //Caso seja escolhido Listar seleções
+				listarSelecoesOuComponentes();
+				break;
+			default:
+				System.out.println("Você digitou um valor inválido");
+				break;
 			}
 			break;
 		case 2:
-			//Se a lista com árbitros não estiver vazia
-			if(!arbitroDAO.ListaArbitro().isEmpty()) {
-				System.out.println("Digite o número correspondente à ação que deseja tomar");
-				System.out.println("1-Criar árbitro\n2-Editar árbitro\n3-Remover árbitro\n4-Listar árbitros");
-				entrada = leitor.nextInt(); //Recebe a entrada do usuário
-				leitor.nextLine(); //Limpa buffer
-				switch(entrada) {
-				case 1: //Se quiser criar árbitro
-					criarArbitro();
-					break;
-				case 2: //Se quiser editar árbitro
-					editarArbitro();
-					break;
-				case 3: //Se quiser remover árbitro
-					removerArbitro();
-					break;
-				case 4: //Se quiser listar os árbitros
-					listarArbitros();
-					break;
-				default: //Se não escolher nenhuma das opções
-					System.out.println("Você escolheu nenhuma das quatro opções");
-					break;
-				}
-			}else { //Se a lista com árbitros estiver vazia
-				criarArbitro();
+			System.out.println("Digite o número correspondente à ação que deseja tomar");
+			System.out.println("1-Editar árbitro\n2-Listar árbitros");
+			entrada = leitor.nextInt(); //Recebe a entrada do usuário
+			leitor.nextLine(); //Limpa buffer
+			switch(entrada) {
+			case 1: //Se quiser editar árbitro
+				editarArbitro();
+				break;
+			case 2: //Se quiser listar os árbitros
+				listarArbitros();
+				break;
+			default: //Se não escolher nenhuma das opções
+				System.out.println("Você escolheu nenhuma das quatro opções");
+				break;
 			}
 			break;
 		case 3: //Para listar os técnicos da copa
@@ -528,7 +753,10 @@ public class Main extends Application {
 		case 4: //Para listar os jogadores da copa
 			listarJogadores();
 			break;
-		case 5: //Para encerrar a fase de grupos
+		case 5: //Para listar partidas de um dos grupos
+			listarPartidas();
+			break;
+		case 6: //Para encerrar a fase de grupos
 			faseGrupo.updateSelecoes(selecaoDAO.ListaSelecao());
 			faseGrupo.encerrarFase();
 			break;
