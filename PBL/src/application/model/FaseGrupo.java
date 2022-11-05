@@ -57,7 +57,22 @@ public class FaseGrupo {
 		return this.grupos[index];
 	}
 	
+	public void updateJogadores(JogadorDAO jogadorDAO) {
+		Grupo[] grupos = getGrupos();
+		Partida[] partidas;
+		for (int i = 0; i < 8; i++) {
+			partidas = grupos[i].getPartidas();
+			for (int j = 0; j < 6; j++) {
+				for (JogPartida jogPartida: partidas[j].getJogadores()) {
+					jogadorDAO.BuscarJogador(jogPartida.getCodJogador()).addCartoes(jogPartida.getCartoesAma(), jogPartida.getCartoesVer());
+					jogadorDAO.BuscarJogador(jogPartida.getCodJogador()).addGols(jogPartida.getGols());
+				}
+			}
+		}
+	}
+	
 	public List<Integer> encerrarFase() {
+		//Pegar as duas seleções com maior pontuação de cada grupo.
 		List<Integer> selecoesPassaram = new ArrayList<Integer>();
 		int pontos1, pontos2, index1, index2;
 
@@ -68,7 +83,6 @@ public class FaseGrupo {
 			index2 = 0;
 			this.grupos[i].updatePontos();
 
-			//Pegar as duas seleções com maior pontuação.
 			//Pegando a primeira:
 			for (int j = 0; j < 4; j++) {
 				if(this.grupos[i].getPontuacoes()[j] > pontos1) {

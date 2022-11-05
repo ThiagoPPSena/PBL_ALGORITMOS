@@ -84,24 +84,36 @@ public class Main extends Application {
 				int ano = 1924;
 				while(ano < 1930) {
 					System.out.println("Digite o ano:");
-					ano = leitor.nextInt();
-					leitor.nextLine();
+					try {
+						ano = leitor.nextInt();
+						leitor.nextLine();
+					}catch(Exception e) {
+						System.out.println("Entrada inválida!");
+					}
 					if(ano < 1930)
 						System.out.println("Digite novamente!Ano deve ser a partir de 1930");
 				}
 				int mes = 0;
 				while(mes < 1 || mes > 12) {
 					System.out.println("Digite o número do mes (Ex. 1-Janeiro):");
-					mes = leitor.nextInt();
-					leitor.nextLine();
+					try {
+						mes = leitor.nextInt();
+						leitor.nextLine();
+					}catch(Exception e) {
+						System.out.println("Entrada inválida!");
+					}
 					if(mes < 1 || mes > 12)
 						System.out.println("Digite novamente!Digite entre 1 e 12");
 				}
 				int dia = 0;
 				while(dia < 1 || dia > 31) {
 					System.out.println("Digite o dia:");
-					dia = leitor.nextInt();
-					leitor.nextLine();
+					try {
+						dia = leitor.nextInt();
+						leitor.nextLine();
+					}catch(Exception e) {
+						System.out.println("Entrada inálida!");
+					}
 					if(dia < 1 || dia > 31)
 						System.out.println("Digite novamente!Digite entre 1 e 31");
 				}
@@ -111,15 +123,23 @@ public class Main extends Application {
 				int minutos = 61;
 				while(horas < 0 || horas > 23) {
 					System.out.println("Digite as horas:");
-					horas = leitor.nextInt();
-					leitor.nextLine();
+					try {
+						horas = leitor.nextInt();
+						leitor.nextLine();
+					}catch(Exception e) {
+						System.out.println("Entrada inválida!");
+					}
 					if(horas < 0 || horas > 23)
 						System.out.println("Digite novamente!Digite entre 0 e 23");
 				}
 				while(minutos < 0 || minutos > 60) {
 					System.out.println("Digite os minutos:");
-					horas = leitor.nextInt();
-					leitor.nextLine();
+					try {
+						horas = leitor.nextInt();
+						leitor.nextLine();
+					}catch(Exception e) {
+						System.out.println("Entrada inválida!");
+					}
 					if(minutos < 0 || minutos > 60)
 						System.out.println("Digite novamente!Digite entre 0 e 60");
 				}
@@ -129,8 +149,18 @@ public class Main extends Application {
 						"Agora, olhando a lista de árbitros abaixo, digite o código daquele que abitará esta partida");
 				listarArbitros();
 				System.out.println("Código: ");
-				int codArbitro = leitor.nextInt();
-				leitor.nextLine();
+				boolean entradaInvalida = true;
+				int codArbitro = 0;
+				while (entradaInvalida) {
+					try {
+						codArbitro = leitor.nextInt();
+						leitor.nextLine();
+						entradaInvalida = false;
+					}catch(Exception e) {
+						System.out.println("Entrada inválida! Insira novamente:");
+					}
+				}
+				entradaInvalida = true;
 				boolean loop = true;
 				while(loop) {
 					if(arbitroDAO.ListaArbitro().containsKey(codArbitro)) {
@@ -138,8 +168,15 @@ public class Main extends Application {
 						loop = false;
 					}else {
 						System.out.println("Código do árbitro inválido! Digite um código válido");
-						codArbitro = leitor.nextInt();
-						leitor.nextLine();
+						while (entradaInvalida) {
+							try {
+								codArbitro = leitor.nextInt();
+								leitor.nextLine();
+								entradaInvalida = false;
+							}catch(Exception e) {
+								System.out.println("Entrada inválida! Insira novamente:");
+							}
+						}
 					}
 				}
 			}
@@ -150,8 +187,13 @@ public class Main extends Application {
 	public static void listarPartidas() {
 		
 		System.out.println("Digite o código do grupo que deseja listar as partidas (0-7)");
-		int cod = leitor.nextInt();
-		leitor.nextLine();
+		int cod;
+		try {
+			cod = leitor.nextInt();
+			leitor.nextLine();
+		}catch(Exception e) {
+			cod = -1;
+		}
 		if (cod >= 0 || cod < 8) {
 			Grupo grupo = faseGrupo.buscarGrupo(cod);
 			for (Partida partida : grupo.getPartidas()) {
@@ -172,8 +214,13 @@ public class Main extends Application {
 	public static void editarPartidas() {
 		List<Integer> listaCodPartidas = new ArrayList<Integer>();
 		System.out.println("Digite o código do grupo (0-7) da partida que deseja editar:");
-		int codGrupo = leitor.nextInt();
-		leitor.nextLine();
+		int codGrupo;
+		try {
+			codGrupo = leitor.nextInt();
+			leitor.nextLine();
+		}catch(Exception e) {
+			codGrupo = -1;
+		}
 		if (codGrupo >= 0 || codGrupo < 8) {
 			Grupo grupo = faseGrupo.buscarGrupo(codGrupo);
 			for (Partida partida : grupo.getPartidas()) {
@@ -183,8 +230,13 @@ public class Main extends Application {
 				System.out.println(partida.getCodPartida()+" = Partida entre " + selecao1.getNome() + " e " + selecao2.getNome());
 			}
 			System.out.println("Digite o código da partida que deseja editar:");
-			int codPart = leitor.nextInt();
-			leitor.nextLine();
+			int codPart;
+			try {
+				codPart = leitor.nextInt();
+				leitor.nextLine();
+			}catch(Exception e) {
+				codPart = -1;
+			}
 			if(listaCodPartidas.contains(codPart)) {
 				int indexPart = grupo.buscarPartida(codPart);
 				Partida partida = grupo.getPartidas()[indexPart];
@@ -197,24 +249,36 @@ public class Main extends Application {
 				int ano = 1924;
 				while(ano < 1930) {
 					System.out.println("Digite o ano:");
-					ano = leitor.nextInt();
-					leitor.nextLine();
+					try {
+						ano = leitor.nextInt();
+						leitor.nextLine();
+					}catch(Exception e) {
+						System.out.println("Entrada inválida!");
+					}
 					if(ano < 1930)
 						System.out.println("Digite novamente!Ano deve ser a partir de 1930");
 				}
 				int mes = 0;
 				while(mes < 1 || mes > 12) {
 					System.out.println("Digite o número do mes (Ex. 1-Janeiro):");
-					mes = leitor.nextInt();
-					leitor.nextLine();
+					try {
+						mes = leitor.nextInt();
+						leitor.nextLine();
+					}catch(Exception e) {
+						System.out.println("Entrada inválida!");
+					}
 					if(mes < 1 || mes > 12)
 						System.out.println("Digite novamente!Digite entre 1 e 12");
 				}
 				int dia = 0;
 				while(dia < 1 || dia > 31) {
 					System.out.println("Digite o dia:");
-					dia = leitor.nextInt();
-					leitor.nextLine();
+					try {
+						dia = leitor.nextInt();
+						leitor.nextLine();
+					}catch(Exception e) {
+						System.out.println("Entrada inálida!");
+					}
 					if(dia < 1 || dia > 31)
 						System.out.println("Digite novamente!Digite entre 1 e 31");
 				}
@@ -224,15 +288,23 @@ public class Main extends Application {
 				int minutos = 61;
 				while(horas < 0 || horas > 23) {
 					System.out.println("Digite as horas:");
-					horas = leitor.nextInt();
-					leitor.nextLine();
+					try {
+						horas = leitor.nextInt();
+						leitor.nextLine();
+					}catch(Exception e) {
+						System.out.println("Entrada inválida!");
+					}
 					if(horas < 0 || horas > 23)
 						System.out.println("Digite novamente!Digite entre 0 e 23");
 				}
 				while(minutos < 0 || minutos > 60) {
 					System.out.println("Digite os minutos:");
-					horas = leitor.nextInt();
-					leitor.nextLine();
+					try {
+						horas = leitor.nextInt();
+						leitor.nextLine();
+					}catch(Exception e) {
+						System.out.println("Entrada inválida!");
+					}
 					if(minutos < 0 || minutos > 60)
 						System.out.println("Digite novamente!Digite entre 0 e 60");
 				}
@@ -241,6 +313,8 @@ public class Main extends Application {
 			}else
 				System.out.println("Código inválido!!!");
 				
+		}else {
+			System.out.println("Código inválido!!!");
 		}
 		
 	}
@@ -249,8 +323,13 @@ public class Main extends Application {
 	public static void editarJogPartida() {
 		List<Integer> listaCodPartidas = new ArrayList<Integer>();
 		System.out.println("Digite o código do grupo (0-7) da partida que deseja editar:");
-		int codGrupo = leitor.nextInt();
-		leitor.nextLine();
+		int codGrupo;
+		try {
+			codGrupo = leitor.nextInt();
+			leitor.nextLine();
+		}catch(Exception e) {
+			codGrupo = -1;
+		}
 		if (codGrupo >= 0 || codGrupo < 8) {
 			Grupo grupo = faseGrupo.buscarGrupo(codGrupo);
 			for (Partida partida : grupo.getPartidas()) {
@@ -260,8 +339,13 @@ public class Main extends Application {
 				System.out.println(partida.getCodPartida()+" = Partida entre " + selecao1.getNome() + " e " + selecao2.getNome());
 			}
 			System.out.println("Digite o código da partida que deseja editar seus jogadores:");
-			int codPart = leitor.nextInt();
-			leitor.nextLine();
+			int codPart;
+			try {
+				codPart = leitor.nextInt();
+				leitor.nextLine();
+			}catch(Exception e) {
+				codPart = -1;
+			}
 			if(listaCodPartidas.contains(codPart)) {
 				int indexPart = grupo.buscarPartida(codPart);
 				Partida partida = grupo.getPartidas()[indexPart];
@@ -270,21 +354,35 @@ public class Main extends Application {
 					int codJogador = jogadorPart.getCodJogador();
 					System.out.println("Código: "+codJogador+";Nome: "+jogadorDAO.BuscarJogador(codJogador).getNome());
 				}
-				int codJogador = leitor.nextInt();
-				leitor.nextLine();
+				int codJogador;
+				try {
+					codJogador = leitor.nextInt();
+					leitor.nextLine();
+				}catch(Exception e) {
+					codJogador = -1;
+				}
 				JogPartida jogPartida = partida.buscarJogPartida(codJogador);
 				if(jogPartida != null) {
 					System.out.println("Editar jogador "+jogadorDAO.BuscarJogador(codJogador).getNome());
 					System.out.println("Caso queira manter a mesma informação, reescreva-a da mesma forma que a anterior");
 					System.out.println("Digite o número de gols na partida(gols atuais: "+jogPartida.getGols()+")");
-					int gols = leitor.nextInt();
-					leitor.nextLine();
+					int gols;
+					try {
+						gols = leitor.nextInt();
+						leitor.nextLine();
+					}catch(Exception e) {
+						gols = jogPartida.getGols();
+					}
 					jogPartida.setGols(gols);
 					int cartAma = -1;
 					while(cartAma < 0 || cartAma > 2) {
 						System.out.println("Digite o número de cartões amarelos na partida(cartões atuais: "+jogPartida.getCartoesAma()+")");
-						cartAma = leitor.nextInt();
-						leitor.nextLine();
+						try {
+							cartAma = leitor.nextInt();
+							leitor.nextLine();
+						}catch(Exception e) {
+							cartAma = -1;
+						}
 						if(cartAma < 0 || cartAma > 2) {
 							System.out.println("Digite novamente!Ou 0, ou 1, ou 2");
 						}
@@ -292,8 +390,12 @@ public class Main extends Application {
 					int cartVer = -1;
 					while(cartVer != 0 || cartVer != 1) {
 						System.out.println("Digite o número de cartões Vermelhos na partida(cartões atuais: "+jogPartida.getCartoesVer()+")");
-						cartVer = leitor.nextInt();
-						leitor.nextLine();
+						try {
+							cartVer = leitor.nextInt();
+							leitor.nextLine();
+						}catch(Exception e) {
+							cartVer = -1;
+						}
 						if(cartVer != 1 || cartVer != 1) {
 							System.out.println("Digite novamente!Ou 0, ou 1");
 						}
@@ -307,6 +409,8 @@ public class Main extends Application {
 			}else {
 				System.out.println("A partida com esse código não pertence a esse grupo ou não existe!!!");
 			}
+		}else {
+			System.out.println("Código inválido!!!");
 		}
 	}
 	
@@ -315,24 +419,36 @@ public class Main extends Application {
 		int ano = 1924;
 		while(ano < 1930) {
 			System.out.println("Digite o ano:");
-			ano = leitor.nextInt();
-			leitor.nextLine();
+			try {
+				ano = leitor.nextInt();
+				leitor.nextLine();
+			}catch(Exception e) {
+				System.out.println("Entrada inválida!");
+			}
 			if(ano < 1930)
 				System.out.println("Digite novamente!Ano deve ser a partir de 1930");
 		}
 		int mes = 0;
 		while(mes < 1 || mes > 12) {
 			System.out.println("Digite o número do mes (Ex. 1-Janeiro):");
-			mes = leitor.nextInt();
-			leitor.nextLine();
+			try {
+				mes = leitor.nextInt();
+				leitor.nextLine();
+			}catch(Exception e) {
+				System.out.println("Entrada inválida!");
+			}
 			if(mes < 1 || mes > 12)
 				System.out.println("Digite novamente!Digite entre 1 e 12");
 		}
 		int dia = 0;
 		while(dia < 1 || dia > 31) {
 			System.out.println("Digite o dia:");
-			dia = leitor.nextInt();
-			leitor.nextLine();
+			try {
+				dia = leitor.nextInt();
+				leitor.nextLine();
+			}catch(Exception e) {
+				System.out.println("Entrada inálida!");
+			}
 			if(dia < 1 || dia > 31)
 				System.out.println("Digite novamente!Digite entre 1 e 31");
 		}
@@ -357,8 +473,13 @@ public class Main extends Application {
 		String nome = leitor.nextLine();
 		System.out.println("Digite o número correspondente a qual categoria quer pesquisar:");
 		System.out.println("1-Jogador\n2-Técnico\n3-Árbitro");
-		int escolha = leitor.nextInt();
-		leitor.nextLine();
+		int escolha;
+		try {
+			escolha = leitor.nextInt();
+			leitor.nextLine();
+		}catch(Exception e) {
+			escolha = 0;
+		}
 		switch(escolha) {
 		case 1:
 			for(Jogador jogador:jogadorDAO.ListaJog().values()) {
@@ -417,8 +538,12 @@ public class Main extends Application {
 		listarArbitros(); //Lista todos os árbitros 
 		System.out.println("Digite o código do árbitro a ser editado");
 		System.out.println("Código:");
-		cod = leitor.nextInt(); //O usuário digita o código do árbitro a ser removido
-		leitor.nextLine(); //Limpa o buffer
+		try {
+			cod = leitor.nextInt(); //O usuário digita o código do árbitro a ser removido
+			leitor.nextLine(); //Limpa o buffer
+		}catch(Exception e) {
+			cod = -1;
+		}
 		//Se o árbitro com esse código estiver na coleção...
 		if(arbitroDAO.ListaArbitro().get(cod) != null) {
 			System.out.println("Digite o nome editado:");
@@ -438,8 +563,12 @@ public class Main extends Application {
 		
 		listarArbitros(); //Lista todos os árbitros
 		System.out.println("Digite o código do árbitro a ser removido:");
-		cod = leitor.nextInt(); //O usuário digita o código do árbitro a ser removido
-		leitor.nextLine(); //Limpa o buffer
+		try {
+			cod = leitor.nextInt(); //O usuário digita o código do árbitro a ser removido
+			leitor.nextLine(); //Limpa o buffer
+		}catch(Exception e) {
+			cod = -1;
+		}
 		if(arbitroDAO.RemoverArbitro(cod) != null) //Se for encontrado o árbitro, ele será removido
 			System.out.println("\nÁrbitro removido!!!");
 		else //Se não encontrar o árbitro...
@@ -471,8 +600,13 @@ public class Main extends Application {
 	public static void listarSelecoesOuComponentes() {
 		System.out.println("Qual ação deseja tomar?");
 		System.out.println("1-Listar todas as seleções\n2-Listar todos os componentes de uma seleção");
-		int entrada = leitor.nextInt(); //Recebe entrada do usuário
-		leitor.nextLine();
+		int entrada;
+		try {
+			entrada = leitor.nextInt(); //Recebe entrada do usuário
+			leitor.nextLine();
+		}catch(Exception e) {
+			entrada = 0;
+		}
 		switch(entrada) {
 		case 1: //Se escolhar listar todas as seleções
 			listarSelecoes();
@@ -480,8 +614,13 @@ public class Main extends Application {
 		case 2: //Caso escolha listar tudo peretecente a uma seleção
 			listarSelecoes(); //Lista todas seleções para facilitar a escolha de qual seleção o usuário quer visualizar
 			System.out.println("Qual a seleção deseja visualizar? (Digite o código)");
-			int codSel = leitor.nextInt(); //Recebe o código da seleção a ser visualizada
-			leitor.nextLine(); //Limpa o buffer
+			int codSel;
+			try {
+				codSel = leitor.nextInt(); //Recebe o código da seleção a ser visualizada
+				leitor.nextLine(); //Limpa o buffer
+			}catch(Exception e) {
+				codSel = -1;
+			}
 			listarMembrosSelecao(codSel); //Lista tudo da seleção caso a encontre
 			break;
 		default:
@@ -530,8 +669,12 @@ public class Main extends Application {
 				System.out.println("Nome:");
 				nome = leitor.nextLine(); //Recebe o nome do jogador
 				System.out.println("Posição (1-Goleiro; 2-Zagueiro; 3-Meia; 4-Atacante):");
-				posicao = leitor.nextInt(); //Recebe um inteiro que simboliza sua posicao
-				leitor.nextLine(); //Limpa o buffer
+				try {
+					posicao = leitor.nextInt(); //Recebe um inteiro que simboliza sua posicao
+					leitor.nextLine(); //Limpa o buffer
+				}catch(Exception e) {
+					posicao = 0;
+				}
 				switch(posicao) {
 				case 1: //Se digitou 1, sua posição é goleiro
 					posicaoString = "Goleiro";
@@ -572,15 +715,25 @@ public class Main extends Application {
 	public static void editarSelecao() {
 		listarSelecoes(); //Lista todas as seleções já cadastradas para facilitar que o usuário saiba qual editar
 		System.out.println("Qual a seleção a ter seus dados alterados? (digite o código)");
-		int cod = leitor.nextInt(); //Recebe o código da seleção a ser editada
-		leitor.nextLine(); //Limpa o buffer
+		int cod;
+		try {
+			cod = leitor.nextInt(); //Recebe o código da seleção a ser editada
+			leitor.nextLine(); //Limpa o buffer
+		}catch(Exception e) {
+			cod = -1;
+		}
 		if(selecaoDAO.BuscarSelecao(cod) != null) { //Se encontrar a seleção
 			listarMembrosSelecao(cod); //Lista todos os membros da seleção
 			System.out.println("Deseja editar o que de seleção?");
 			System.out.println("1-Nome de Seleção\n2-Nome do técnico\n3-Dados de algum jogador");
 			System.out.println("Escolha:");
-			int entrada = leitor.nextInt(); //Recebe entrada do usuário
-			leitor.nextLine(); //Limpa o buffer
+			int entrada;
+			try {
+				entrada = leitor.nextInt(); //Recebe entrada do usuário
+				leitor.nextLine(); //Limpa o buffer
+			}catch(Exception e) {
+				entrada = 0;
+			}
 			switch(entrada) {
 			case 1: //Se quiser alterar o nome da seleção
 				System.out.println("Qual o novo nome editado da seleção?");
@@ -594,8 +747,13 @@ public class Main extends Application {
 				break;
 			case 3: //Se for escolhido alterar os dados do jogador
 				System.out.println("Deseja alterar dados de qual jogador? (digite seu código)");
-				int codJog = leitor.nextInt(); //Recebe o código do jogador
-				leitor.nextLine(); //Limpa o buffer
+				int codJog;
+				try {
+					codJog = leitor.nextInt(); //Recebe o código do jogador
+					leitor.nextLine(); //Limpa o buffer
+				}catch(Exception e) {
+					codJog = -1;
+				}
 				editarJogador(codJog, cod);
 				break;
 			default:
@@ -612,9 +770,14 @@ public class Main extends Application {
 		if(selecaoDAO.CodJogadoresSelecao(codSel).contains(codJog)) { //Se o a seleção escolhida tiver o jogador escolhido para ser editado...
 			System.out.println("Deseja alterar o quê de "+jogadorDAO.BuscarJogador(codJog).getNome()+"?");
 			System.out.println("1-Nome\n2-Posição\n3-Número de cartões\n4-Número de gols");
-			System.out.println("Escolha:"); 
-			int escolha = leitor.nextInt(); //O usuário escolhe o que editar do jogador
-			leitor.nextLine();
+			System.out.println("Escolha:");
+			int escolha;
+			try {
+				escolha = leitor.nextInt(); //O usuário escolhe o que editar do jogador
+				leitor.nextLine();
+			}catch(Exception e) {
+				escolha = 0;
+			}
 			switch(escolha) {
 			case 1: //Se escolher editar nome...
 				System.out.println("Qual o novo nome?");
@@ -625,8 +788,13 @@ public class Main extends Application {
 			case 2: //Se escolher a posição...
 				System.out.println("Qual a nova posição? (1-Goleiro; 2-Zagueiro; 3-Meia; 4-Atacante)");
 				String posicaoString;
-				int posicao = leitor.nextInt(); //Recebe um inteiro que simboliza a nova posição do jogador
-				leitor.nextLine(); //Limpa o buffer
+				int posicao;
+				try {
+					posicao = leitor.nextInt(); //Recebe um inteiro que simboliza a nova posição do jogador
+					leitor.nextLine(); //Limpa o buffer
+				}catch(Exception e) {
+					posicao = 0;
+				}
 				switch(posicao) {
 				case 1: //Se escolheu goleiro...
 					posicaoString = "Goleiro";
@@ -650,9 +818,21 @@ public class Main extends Application {
 				break;
 			case 3: //Caso queira editar o número de cartões...
 				System.out.println("Quantos cartões amarelos esse jogador tem?");
-				int cartAma = leitor.nextInt(); //Recebe a quantidade de cartões amarelo que o jogador tem no total da competição
+				int cartAma;
+				try {
+					cartAma = leitor.nextInt(); //Recebe a quantidade de cartões amarelo que o jogador tem no total da competição
+				}catch(Exception e) {
+					System.out.println("Entrada inválida. Cartões amarelos setados automaticamente para 0.");
+					cartAma = 0;
+				}
 				System.out.println("Quantos cartões vermelhos esse jogador tem?");
-				int cartVer = leitor.nextInt(); //Recebe a quantidade de cartões vermelho que o jogador tem no total da competição
+				int cartVer;
+				try {
+					cartVer = leitor.nextInt(); //Recebe a quantidade de cartões vermelho que o jogador tem no total da competição
+				}catch(Exception e) {
+					System.out.println("Entrada inválida. Cartões vermelhos setados automaticamente para 0.");
+					cartVer = 0;
+				}
 				leitor.nextLine(); //Limpa o buffer
 				int[] cartoes = {cartAma, cartVer};
 				jogadorDAO.BuscarJogador(codJog).setCartoes(cartoes); //seta mo DAO jogador o número de cartões
@@ -660,7 +840,13 @@ public class Main extends Application {
 				break;
 			case 4: //Caso tenha escolhido editar o número de gols...
 				System.out.println("Quantos gols esse jogador tem?");
-				int gols = leitor.nextInt(); //Recebe o número de gols total do jogador na competição
+				int gols;
+				try {
+					gols = leitor.nextInt(); //Recebe o número de gols total do jogador na competição
+				}catch(Exception e) {
+					System.out.println("Entrada inválida. Número de gols setado automaticamente para 0.");
+					gols = 0;
+				}
 				leitor.nextLine(); //Limpa o buffer
 				jogadorDAO.BuscarJogador(codJog).setNumGols(gols); //Seta o npumero de gols do jogador no DAO jogador
 				System.out.println("Edição feita com sucesso!");
@@ -680,8 +866,13 @@ public class Main extends Application {
 		listarSelecoes(); //Lista todas as seleções para que o usuário veja quais seleções podem ser removidas
 		System.out.println("Digite o código da seleção que deseja remover, sabendo que ao remover uma seleção, estará removendo seus componentes!");
 		System.out.println("Código:");
-		int cod = leitor.nextInt(); //Recebe o código da seleção a ser removida
-		leitor.nextLine(); //Limpa o buffer
+		int cod;
+		try {
+			cod = leitor.nextInt(); //Recebe o código da seleção a ser removida
+			leitor.nextLine(); //Limpa o buffer
+		}catch(Exception e) {
+			cod = -1;
+		}
 		if(selecaoDAO.BuscarSelecao(cod) != null) { //Se a seleção existir...
 			for(int i: selecaoDAO.CodJogadoresSelecao(cod)) {
 				jogadorDAO.RemoverJogador(i); //Remove todos os jogadores pertencentes a ela que estão salvos no sistema
@@ -704,8 +895,12 @@ public class Main extends Application {
 		System.out.println("Escolha qual ação deseja tomar:");
 		//Denrtro de seleção, pode-se manipular os seus jogadores e seu técnico
 		System.out.println("1-Manipular seleção, seus jogadores e técnico\n2-Manipular árbitro\n3-Listar técnicos\n4-Listar jogadores\n5-Iniciar fase de grupos\n6-Sair");
-		entrada = leitor.nextInt();
-		leitor.nextLine(); //Limpa o buffer
+		try {
+			entrada = leitor.nextInt();
+			leitor.nextLine(); //Limpa o buffer
+		}catch(Exception e) {
+			entrada = 0;
+		}
 		switch(entrada) {
 		case 1: //Caso o usuário digite 1
 			//Se a lista com seleções não estiver vazia
@@ -713,8 +908,12 @@ public class Main extends Application {
 				System.out.println("Digite o número correspondente à ação que deseja tomar");
 				System.out.println("1-Criar Seleção\n2-Editar Seleção\n3-Remover Seleção\n4-Listar Seleções");
 				System.out.println("Opção:");
-				entrada = leitor.nextInt(); //Recebe entrada do usuário
-				leitor.nextLine(); //Limpando Buffer
+				try {
+					entrada = leitor.nextInt(); //Recebe entrada do usuário
+					leitor.nextLine(); //Limpando Buffer
+				}catch(Exception e) {
+					entrada = 0;
+				}
 				switch(entrada) {
 				case 1: //Caso queira criar seleção
 					criarSelecao();
@@ -741,8 +940,12 @@ public class Main extends Application {
 			if(!arbitroDAO.ListaArbitro().isEmpty()) {
 				System.out.println("Digite o número correspondente à ação que deseja tomar");
 				System.out.println("1-Criar árbitro\n2-Editar árbitro\n3-Remover árbitro\n4-Listar árbitros");
-				entrada = leitor.nextInt(); //Recebe a entrada do usuário
-				leitor.nextLine(); //Limpa buffer
+				try {
+					entrada = leitor.nextInt(); //Recebe a entrada do usuário
+					leitor.nextLine(); //Limpa buffer
+				}catch(Exception e) {
+					entrada = 0;
+				}
 				switch(entrada) {
 				case 1: //Se quiser criar árbitro
 					criarArbitro();
@@ -800,15 +1003,23 @@ public class Main extends Application {
 				+ "4-Listar jogadores\n5-Listar partidas de um dos grupos\n6-Editar partida\n"
 				+ "7-Editar jogador em uma partida\n8-Pesquisar partidas por data\n"
 				+ "9-Pesquisar alguém por categoria\n10-Encerrar fase de grupos\n11-Sair");
-		entrada = leitor.nextInt();
-		leitor.nextLine(); //Limpa o buffer
+		try {
+			entrada = leitor.nextInt();
+			leitor.nextLine(); //Limpa o buffer
+		}catch(Exception e) {
+			entrada = 0;
+		}
 		switch(entrada) {
 		case 1: //Caso o usuário digite 1
 			System.out.println("Digite o número correspondente à ação que deseja tomar");
 			System.out.println("1-Editar Seleção\n2-Listar Seleções");
 			System.out.println("Opção:");
-			entrada = leitor.nextInt(); //Recebe entrada do usuário
-			leitor.nextLine(); //Limpando Buffer
+			try {
+				entrada = leitor.nextInt(); //Recebe entrada do usuário
+				leitor.nextLine(); //Limpando Buffer
+			}catch(Exception e) {
+				entrada = 0;
+			}
 			switch(entrada) {
 			case 1: //Caso seja escolhido Editar seleção
 				editarSelecao();
@@ -824,8 +1035,12 @@ public class Main extends Application {
 		case 2:
 			System.out.println("Digite o número correspondente à ação que deseja tomar");
 			System.out.println("1-Editar árbitro\n2-Listar árbitros");
-			entrada = leitor.nextInt(); //Recebe a entrada do usuário
-			leitor.nextLine(); //Limpa buffer
+			try {
+				entrada = leitor.nextInt(); //Recebe a entrada do usuário
+				leitor.nextLine(); //Limpa buffer
+			}catch(Exception e) {
+				entrada = 0;
+			}
 			switch(entrada) {
 			case 1: //Se quiser editar árbitro
 				editarArbitro();
@@ -861,6 +1076,7 @@ public class Main extends Application {
 			break;
 		case 10: //Para encerrar a fase de grupos
 			faseGrupo.updateSelecoes(selecaoDAO.ListaSelecao());
+			faseGrupo.updateJogadores(jogadorDAO);
 			faseGrupo.encerrarFase();
 			break;
 		default:

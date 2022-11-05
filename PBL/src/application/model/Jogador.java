@@ -51,6 +51,15 @@ public class Jogador {
 		this.numGols = numGols;
 	}
 	
+	public void addCartoes(int cartoesAma, int cartoesVer) {
+		this.cartoes[0] += cartoesAma;
+		this.cartoes[1] += cartoesVer;
+	}
+	
+	public void addGols(int numGols) {
+		this.numGols += numGols;
+	}
+	
 	@Override
 	public String toString() {
 		return this.nome + " (" + this.posicao + ")\n" + "Cartões amarelos: " + this.cartoes[0] + "\nCartões vermelhos: " + this.cartoes[1] + "\nSaldo de Gols: " + this.numGols + "\n";
