@@ -10,7 +10,7 @@ public class Partida {
 	private int codPartida; 
 	private int codArbitro;
 	private Calendar data = Calendar.getInstance();
-	private String horario;
+	private int[] horario = {0, 0};
 	private String local;
 	private int codTime1;
 	private int codTime2;
@@ -57,11 +57,11 @@ public class Partida {
 		this.data.set(ano, mes, dia);
 	}
 
-	public String getHorario() {
+	public int[] getHorario() {
 		return horario;
 	}
 
-	public void setHorario(String horario) {
+	public void setHorario(int[] horario) {
 		this.horario = horario;
 	}
 

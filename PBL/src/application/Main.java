@@ -57,6 +57,7 @@ public class Main extends Application {
 	
 	public static void criarPartidas() {
 		for(int i=0; i<8; i++) {
+
 			System.out.println("Digite alguns dados das partidas do grupo "+i);
 			Grupo grupo = faseGrupo.buscarGrupo(i);
 			Partida[] partidas = grupo.getPartidas();
@@ -80,18 +81,49 @@ public class Main extends Application {
 				System.out.println("Digite o local:");
 				String local = leitor.nextLine();
 				partida.setLocal(local);
-				System.out.println("Digite o ano:");
-				int ano = leitor.nextInt();
-				leitor.nextLine();
-				System.out.println("Digite o número do mes (Ex. 1-Janeiro):");
-				int mes = leitor.nextInt();
-				leitor.nextLine();
-				System.out.println("Digite o dia:");
-				int dia = leitor.nextInt();
-				leitor.nextLine();
+				int ano = 1924;
+				while(ano < 1930) {
+					System.out.println("Digite o ano:");
+					ano = leitor.nextInt();
+					leitor.nextLine();
+					if(ano < 1930)
+						System.out.println("Digite novamente!Ano deve ser a partir de 1930");
+				}
+				int mes = 0;
+				while(mes < 1 || mes > 12) {
+					System.out.println("Digite o número do mes (Ex. 1-Janeiro):");
+					mes = leitor.nextInt();
+					leitor.nextLine();
+					if(mes < 1 || mes > 12)
+						System.out.println("Digite novamente!Digite entre 1 e 12");
+				}
+				int dia = 0;
+				while(dia < 1 || dia > 31) {
+					System.out.println("Digite o dia:");
+					dia = leitor.nextInt();
+					leitor.nextLine();
+					if(dia < 1 || dia > 31)
+						System.out.println("Digite novamente!Digite entre 1 e 31");
+				}
 				partida.setData(ano, mes, dia);
 				System.out.println("Digite o horário:");
-				String horario = leitor.nextLine();
+				int horas = 25;
+				int minutos = 61;
+				while(horas < 0 || horas > 23) {
+					System.out.println("Digite as horas:");
+					horas = leitor.nextInt();
+					leitor.nextLine();
+					if(horas < 0 || horas > 23)
+						System.out.println("Digite novamente!Digite entre 0 e 23");
+				}
+				while(minutos < 0 || minutos > 60) {
+					System.out.println("Digite os minutos:");
+					horas = leitor.nextInt();
+					leitor.nextLine();
+					if(minutos < 0 || minutos > 60)
+						System.out.println("Digite novamente!Digite entre 0 e 60");
+				}
+				int[] horario = {horas, minutos};
 				partida.setHorario(horario);
 				System.out.println(
 						"Agora, olhando a lista de árbitros abaixo, digite o código daquele que abitará esta partida");
@@ -162,20 +194,50 @@ public class Main extends Application {
 				String local = leitor.nextLine();
 				partida.setLocal(local);
 				System.out.println("Digite a data editada(data atual: "+partida.getData()+")");
-				System.out.println("Digite o ano:");
-				int ano = leitor.nextInt();
-				leitor.nextLine();
-				System.out.println("Digite o número do mes (Ex. 1-Janeiro):");
-				int mes = leitor.nextInt();
-				leitor.nextLine();
-				System.out.println("Digite o dia:");
-				int dia = leitor.nextInt();
-				leitor.nextLine();
+				int ano = 1924;
+				while(ano < 1930) {
+					System.out.println("Digite o ano:");
+					ano = leitor.nextInt();
+					leitor.nextLine();
+					if(ano < 1930)
+						System.out.println("Digite novamente!Ano deve ser a partir de 1930");
+				}
+				int mes = 0;
+				while(mes < 1 || mes > 12) {
+					System.out.println("Digite o número do mes (Ex. 1-Janeiro):");
+					mes = leitor.nextInt();
+					leitor.nextLine();
+					if(mes < 1 || mes > 12)
+						System.out.println("Digite novamente!Digite entre 1 e 12");
+				}
+				int dia = 0;
+				while(dia < 1 || dia > 31) {
+					System.out.println("Digite o dia:");
+					dia = leitor.nextInt();
+					leitor.nextLine();
+					if(dia < 1 || dia > 31)
+						System.out.println("Digite novamente!Digite entre 1 e 31");
+				}
 				partida.setData(ano, mes, dia);
-				System.out.println("Digite o horário editado(horário atual: "+partida.getHorario()+")");
-				String horario = leitor.nextLine();
+				System.out.println("Digite o horário:");
+				int horas = 25;
+				int minutos = 61;
+				while(horas < 0 || horas > 23) {
+					System.out.println("Digite as horas:");
+					horas = leitor.nextInt();
+					leitor.nextLine();
+					if(horas < 0 || horas > 23)
+						System.out.println("Digite novamente!Digite entre 0 e 23");
+				}
+				while(minutos < 0 || minutos > 60) {
+					System.out.println("Digite os minutos:");
+					horas = leitor.nextInt();
+					leitor.nextLine();
+					if(minutos < 0 || minutos > 60)
+						System.out.println("Digite novamente!Digite entre 0 e 60");
+				}
+				int[] horario = {horas, minutos};
 				partida.setHorario(horario);
-				
 			}else
 				System.out.println("Código inválido!!!");
 				
@@ -218,15 +280,26 @@ public class Main extends Application {
 					int gols = leitor.nextInt();
 					leitor.nextLine();
 					jogPartida.setGols(gols);
-					System.out.println("Digite o número de cartões amarelos na partida(cartões atuais: "+jogPartida.getCartoesAma()+")");
-					int cartAma = leitor.nextInt();
-					leitor.nextLine();
+					int cartAma = -1;
+					while(cartAma < 0 || cartAma > 2) {
+						System.out.println("Digite o número de cartões amarelos na partida(cartões atuais: "+jogPartida.getCartoesAma()+")");
+						cartAma = leitor.nextInt();
+						leitor.nextLine();
+						if(cartAma < 0 || cartAma > 2) {
+							System.out.println("Digite novamente!Ou 0, ou 1, ou 2");
+						}
+					}
+					int cartVer = -1;
+					while(cartVer != 0 || cartVer != 1) {
+						System.out.println("Digite o número de cartões Vermelhos na partida(cartões atuais: "+jogPartida.getCartoesVer()+")");
+						cartVer = leitor.nextInt();
+						leitor.nextLine();
+						if(cartVer != 1 || cartVer != 1) {
+							System.out.println("Digite novamente!Ou 0, ou 1");
+						}
+					}
 					jogPartida.setCartoesAma(cartAma);
-					System.out.println("Digite o número de cartões vermelhos na partida(cartões atuais: "+jogPartida.getCartoesVer()+")");
-					int cartVer = leitor.nextInt();
-					leitor.nextLine();
 					jogPartida.setCartoesVer(cartVer);
-					
 				}else {
 					System.out.println("O jogador com esse código não pertence a essa partida ou não existe!!!");
 				}
@@ -239,15 +312,30 @@ public class Main extends Application {
 	
 	public static void pesquisarPorData() {
 		System.out.println("Digite uma data: ");
-		System.out.println("Digite o ano:");
-		int ano = leitor.nextInt();
-		leitor.nextLine();
-		System.out.println("Digite o número do mes (Ex. 1-Janeiro):");
-		int mes = leitor.nextInt();
-		leitor.nextLine();
-		System.out.println("Digite o dia:");
-		int dia = leitor.nextInt();
-		leitor.nextLine();
+		int ano = 1924;
+		while(ano < 1930) {
+			System.out.println("Digite o ano:");
+			ano = leitor.nextInt();
+			leitor.nextLine();
+			if(ano < 1930)
+				System.out.println("Digite novamente!Ano deve ser a partir de 1930");
+		}
+		int mes = 0;
+		while(mes < 1 || mes > 12) {
+			System.out.println("Digite o número do mes (Ex. 1-Janeiro):");
+			mes = leitor.nextInt();
+			leitor.nextLine();
+			if(mes < 1 || mes > 12)
+				System.out.println("Digite novamente!Digite entre 1 e 12");
+		}
+		int dia = 0;
+		while(dia < 1 || dia > 31) {
+			System.out.println("Digite o dia:");
+			dia = leitor.nextInt();
+			leitor.nextLine();
+			if(dia < 1 || dia > 31)
+				System.out.println("Digite novamente!Digite entre 1 e 31");
+		}
 		Calendar data = Calendar.getInstance();
 		data.set(ano, mes, dia);
 		for(Grupo grupo:faseGrupo.getGrupos()) {
@@ -708,7 +796,10 @@ public class Main extends Application {
 		
 		System.out.println("Escolha qual ação deseja tomar:");
 		//Denrtro de seleção, pode-se manipular os seus jogadores e seu técnico
-		System.out.println("1-Manipular seleção, seus jogadores e técnico\n2-Manipular árbitro\n3-Listar técnicos\n4-Listar jogadores\n5-Listar partidas de um dos grupos\n6-Encerrar fase de grupos\n7-Sair");
+		System.out.println("1-Manipular seleção, seus jogadores e técnico\n2-Manipular árbitro\n3-Listar técnicos\n"
+				+ "4-Listar jogadores\n5-Listar partidas de um dos grupos\n6-Editar partida\n"
+				+ "7-Editar jogador em uma partida\n8-Pesquisar partidas por data\n"
+				+ "9-Pesquisar alguém por categoria\n10-Encerrar fase de grupos\n11-Sair");
 		entrada = leitor.nextInt();
 		leitor.nextLine(); //Limpa o buffer
 		switch(entrada) {
@@ -756,7 +847,19 @@ public class Main extends Application {
 		case 5: //Para listar partidas de um dos grupos
 			listarPartidas();
 			break;
-		case 6: //Para encerrar a fase de grupos
+		case 6:
+			editarPartidas();
+			break;
+		case 7:
+			editarJogPartida();
+			break;
+		case 8:
+			pesquisarPorData();
+			break;
+		case 9:
+			pesquisarPorCategoria();
+			break;
+		case 10: //Para encerrar a fase de grupos
 			faseGrupo.updateSelecoes(selecaoDAO.ListaSelecao());
 			faseGrupo.encerrarFase();
 			break;
