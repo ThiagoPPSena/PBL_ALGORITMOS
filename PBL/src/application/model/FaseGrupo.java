@@ -22,6 +22,7 @@ public class FaseGrupo {
 	}
 	
 	public void updateSelecoes(Map<Integer, Selecao> selecoes) {
+		this.selecoes = new ArrayList<Integer>();
 		for (int key: selecoes.keySet()) {
 			this.selecoes.add(key);
 		}
@@ -30,6 +31,7 @@ public class FaseGrupo {
 	public void iniciarFase(ArbitroDAO arbitroDAO) throws QuantidadeSelecoesIncompletaException, MinimoArbitrosException {
 		
 		if(arbitroDAO.ListaArbitro().size()>0) {
+			System.out.println(this.selecoes.size());
 			if (this.selecoes.size() == 32) {
 				
 				this.faseIniciada = true;

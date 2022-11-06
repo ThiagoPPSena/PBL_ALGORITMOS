@@ -314,7 +314,7 @@ public class Main extends Application {
 				while(minutos < 0 || minutos > 60) {
 					System.out.println("Digite os minutos:");
 					try {
-						horas = leitor.nextInt();
+						minutos = leitor.nextInt();
 						leitor.nextLine();
 					}catch(Exception e) {
 						leitor.nextLine();
