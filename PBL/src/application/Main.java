@@ -88,6 +88,7 @@ public class Main extends Application {
 						ano = leitor.nextInt();
 						leitor.nextLine();
 					}catch(Exception e) {
+						leitor.nextLine();
 						System.out.println("Entrada inválida!");
 					}
 					if(ano < 1930)
@@ -100,6 +101,7 @@ public class Main extends Application {
 						mes = leitor.nextInt();
 						leitor.nextLine();
 					}catch(Exception e) {
+						leitor.nextLine();
 						System.out.println("Entrada inválida!");
 					}
 					if(mes < 1 || mes > 12)
@@ -112,6 +114,7 @@ public class Main extends Application {
 						dia = leitor.nextInt();
 						leitor.nextLine();
 					}catch(Exception e) {
+						leitor.nextLine();
 						System.out.println("Entrada inálida!");
 					}
 					if(dia < 1 || dia > 31)
@@ -127,6 +130,7 @@ public class Main extends Application {
 						horas = leitor.nextInt();
 						leitor.nextLine();
 					}catch(Exception e) {
+						leitor.nextLine();
 						System.out.println("Entrada inválida!");
 					}
 					if(horas < 0 || horas > 23)
@@ -138,6 +142,7 @@ public class Main extends Application {
 						horas = leitor.nextInt();
 						leitor.nextLine();
 					}catch(Exception e) {
+						leitor.nextLine();
 						System.out.println("Entrada inválida!");
 					}
 					if(minutos < 0 || minutos > 60)
@@ -157,6 +162,7 @@ public class Main extends Application {
 						leitor.nextLine();
 						entradaInvalida = false;
 					}catch(Exception e) {
+						leitor.nextLine();
 						System.out.println("Entrada inválida! Insira novamente:");
 					}
 				}
@@ -174,6 +180,7 @@ public class Main extends Application {
 								leitor.nextLine();
 								entradaInvalida = false;
 							}catch(Exception e) {
+								leitor.nextLine();
 								System.out.println("Entrada inválida! Insira novamente:");
 							}
 						}
@@ -192,6 +199,7 @@ public class Main extends Application {
 			cod = leitor.nextInt();
 			leitor.nextLine();
 		}catch(Exception e) {
+			leitor.nextLine();
 			cod = -1;
 		}
 		if (cod >= 0 || cod < 8) {
@@ -219,6 +227,7 @@ public class Main extends Application {
 			codGrupo = leitor.nextInt();
 			leitor.nextLine();
 		}catch(Exception e) {
+			leitor.nextLine();
 			codGrupo = -1;
 		}
 		if (codGrupo >= 0 || codGrupo < 8) {
@@ -235,6 +244,7 @@ public class Main extends Application {
 				codPart = leitor.nextInt();
 				leitor.nextLine();
 			}catch(Exception e) {
+				leitor.nextLine();
 				codPart = -1;
 			}
 			if(listaCodPartidas.contains(codPart)) {
@@ -253,6 +263,7 @@ public class Main extends Application {
 						ano = leitor.nextInt();
 						leitor.nextLine();
 					}catch(Exception e) {
+						leitor.nextLine();
 						System.out.println("Entrada inválida!");
 					}
 					if(ano < 1930)
@@ -265,6 +276,7 @@ public class Main extends Application {
 						mes = leitor.nextInt();
 						leitor.nextLine();
 					}catch(Exception e) {
+						leitor.nextLine();
 						System.out.println("Entrada inválida!");
 					}
 					if(mes < 1 || mes > 12)
@@ -277,6 +289,7 @@ public class Main extends Application {
 						dia = leitor.nextInt();
 						leitor.nextLine();
 					}catch(Exception e) {
+						leitor.nextLine();
 						System.out.println("Entrada inálida!");
 					}
 					if(dia < 1 || dia > 31)
@@ -292,6 +305,7 @@ public class Main extends Application {
 						horas = leitor.nextInt();
 						leitor.nextLine();
 					}catch(Exception e) {
+						leitor.nextLine();
 						System.out.println("Entrada inválida!");
 					}
 					if(horas < 0 || horas > 23)
@@ -303,6 +317,7 @@ public class Main extends Application {
 						horas = leitor.nextInt();
 						leitor.nextLine();
 					}catch(Exception e) {
+						leitor.nextLine();
 						System.out.println("Entrada inválida!");
 					}
 					if(minutos < 0 || minutos > 60)
@@ -328,6 +343,7 @@ public class Main extends Application {
 			codGrupo = leitor.nextInt();
 			leitor.nextLine();
 		}catch(Exception e) {
+			leitor.nextLine();
 			codGrupo = -1;
 		}
 		if (codGrupo >= 0 || codGrupo < 8) {
@@ -344,6 +360,7 @@ public class Main extends Application {
 				codPart = leitor.nextInt();
 				leitor.nextLine();
 			}catch(Exception e) {
+				leitor.nextLine();
 				codPart = -1;
 			}
 			if(listaCodPartidas.contains(codPart)) {
@@ -359,6 +376,7 @@ public class Main extends Application {
 					codJogador = leitor.nextInt();
 					leitor.nextLine();
 				}catch(Exception e) {
+					leitor.nextLine();
 					codJogador = -1;
 				}
 				JogPartida jogPartida = partida.buscarJogPartida(codJogador);
@@ -371,6 +389,7 @@ public class Main extends Application {
 						gols = leitor.nextInt();
 						leitor.nextLine();
 					}catch(Exception e) {
+						leitor.nextLine();
 						gols = jogPartida.getGols();
 					}
 					jogPartida.setGols(gols);
@@ -381,6 +400,7 @@ public class Main extends Application {
 							cartAma = leitor.nextInt();
 							leitor.nextLine();
 						}catch(Exception e) {
+							leitor.nextLine();
 							cartAma = -1;
 						}
 						if(cartAma < 0 || cartAma > 2) {
@@ -394,6 +414,7 @@ public class Main extends Application {
 							cartVer = leitor.nextInt();
 							leitor.nextLine();
 						}catch(Exception e) {
+							leitor.nextLine();
 							cartVer = -1;
 						}
 						if(cartVer != 1 || cartVer != 1) {
@@ -423,6 +444,7 @@ public class Main extends Application {
 				ano = leitor.nextInt();
 				leitor.nextLine();
 			}catch(Exception e) {
+				leitor.nextLine();
 				System.out.println("Entrada inválida!");
 			}
 			if(ano < 1930)
@@ -435,6 +457,7 @@ public class Main extends Application {
 				mes = leitor.nextInt();
 				leitor.nextLine();
 			}catch(Exception e) {
+				leitor.nextLine();
 				System.out.println("Entrada inválida!");
 			}
 			if(mes < 1 || mes > 12)
@@ -447,6 +470,7 @@ public class Main extends Application {
 				dia = leitor.nextInt();
 				leitor.nextLine();
 			}catch(Exception e) {
+				leitor.nextLine();
 				System.out.println("Entrada inálida!");
 			}
 			if(dia < 1 || dia > 31)
@@ -478,6 +502,7 @@ public class Main extends Application {
 			escolha = leitor.nextInt();
 			leitor.nextLine();
 		}catch(Exception e) {
+			leitor.nextLine();
 			escolha = 0;
 		}
 		switch(escolha) {
@@ -542,6 +567,7 @@ public class Main extends Application {
 			cod = leitor.nextInt(); //O usuário digita o código do árbitro a ser removido
 			leitor.nextLine(); //Limpa o buffer
 		}catch(Exception e) {
+			leitor.nextLine();
 			cod = -1;
 		}
 		//Se o árbitro com esse código estiver na coleção...
@@ -567,6 +593,7 @@ public class Main extends Application {
 			cod = leitor.nextInt(); //O usuário digita o código do árbitro a ser removido
 			leitor.nextLine(); //Limpa o buffer
 		}catch(Exception e) {
+			leitor.nextLine();
 			cod = -1;
 		}
 		if(arbitroDAO.RemoverArbitro(cod) != null) //Se for encontrado o árbitro, ele será removido
@@ -605,6 +632,7 @@ public class Main extends Application {
 			entrada = leitor.nextInt(); //Recebe entrada do usuário
 			leitor.nextLine();
 		}catch(Exception e) {
+			leitor.nextLine();
 			entrada = 0;
 		}
 		switch(entrada) {
@@ -619,6 +647,7 @@ public class Main extends Application {
 				codSel = leitor.nextInt(); //Recebe o código da seleção a ser visualizada
 				leitor.nextLine(); //Limpa o buffer
 			}catch(Exception e) {
+				leitor.nextLine();
 				codSel = -1;
 			}
 			listarMembrosSelecao(codSel); //Lista tudo da seleção caso a encontre
@@ -673,6 +702,7 @@ public class Main extends Application {
 					posicao = leitor.nextInt(); //Recebe um inteiro que simboliza sua posicao
 					leitor.nextLine(); //Limpa o buffer
 				}catch(Exception e) {
+					leitor.nextLine();
 					posicao = 0;
 				}
 				switch(posicao) {
@@ -720,6 +750,7 @@ public class Main extends Application {
 			cod = leitor.nextInt(); //Recebe o código da seleção a ser editada
 			leitor.nextLine(); //Limpa o buffer
 		}catch(Exception e) {
+			leitor.nextLine();
 			cod = -1;
 		}
 		if(selecaoDAO.BuscarSelecao(cod) != null) { //Se encontrar a seleção
@@ -732,6 +763,7 @@ public class Main extends Application {
 				entrada = leitor.nextInt(); //Recebe entrada do usuário
 				leitor.nextLine(); //Limpa o buffer
 			}catch(Exception e) {
+				leitor.nextLine();
 				entrada = 0;
 			}
 			switch(entrada) {
@@ -752,6 +784,7 @@ public class Main extends Application {
 					codJog = leitor.nextInt(); //Recebe o código do jogador
 					leitor.nextLine(); //Limpa o buffer
 				}catch(Exception e) {
+					leitor.nextLine();
 					codJog = -1;
 				}
 				editarJogador(codJog, cod);
@@ -776,6 +809,7 @@ public class Main extends Application {
 				escolha = leitor.nextInt(); //O usuário escolhe o que editar do jogador
 				leitor.nextLine();
 			}catch(Exception e) {
+				leitor.nextLine();
 				escolha = 0;
 			}
 			switch(escolha) {
@@ -793,6 +827,7 @@ public class Main extends Application {
 					posicao = leitor.nextInt(); //Recebe um inteiro que simboliza a nova posição do jogador
 					leitor.nextLine(); //Limpa o buffer
 				}catch(Exception e) {
+					leitor.nextLine();
 					posicao = 0;
 				}
 				switch(posicao) {
@@ -821,7 +856,9 @@ public class Main extends Application {
 				int cartAma;
 				try {
 					cartAma = leitor.nextInt(); //Recebe a quantidade de cartões amarelo que o jogador tem no total da competição
+					leitor.nextLine();
 				}catch(Exception e) {
+					leitor.nextLine();
 					System.out.println("Entrada inválida. Cartões amarelos setados automaticamente para 0.");
 					cartAma = 0;
 				}
@@ -829,11 +866,12 @@ public class Main extends Application {
 				int cartVer;
 				try {
 					cartVer = leitor.nextInt(); //Recebe a quantidade de cartões vermelho que o jogador tem no total da competição
+					leitor.nextLine();
 				}catch(Exception e) {
+					leitor.nextLine();
 					System.out.println("Entrada inválida. Cartões vermelhos setados automaticamente para 0.");
 					cartVer = 0;
 				}
-				leitor.nextLine(); //Limpa o buffer
 				int[] cartoes = {cartAma, cartVer};
 				jogadorDAO.BuscarJogador(codJog).setCartoes(cartoes); //seta mo DAO jogador o número de cartões
 				System.out.println("Edição feita com sucesso!");
@@ -843,11 +881,12 @@ public class Main extends Application {
 				int gols;
 				try {
 					gols = leitor.nextInt(); //Recebe o número de gols total do jogador na competição
+					leitor.nextLine();
 				}catch(Exception e) {
+					leitor.nextLine();
 					System.out.println("Entrada inválida. Número de gols setado automaticamente para 0.");
 					gols = 0;
 				}
-				leitor.nextLine(); //Limpa o buffer
 				jogadorDAO.BuscarJogador(codJog).setNumGols(gols); //Seta o npumero de gols do jogador no DAO jogador
 				System.out.println("Edição feita com sucesso!");
 				break;
@@ -871,6 +910,7 @@ public class Main extends Application {
 			cod = leitor.nextInt(); //Recebe o código da seleção a ser removida
 			leitor.nextLine(); //Limpa o buffer
 		}catch(Exception e) {
+			leitor.nextLine();
 			cod = -1;
 		}
 		if(selecaoDAO.BuscarSelecao(cod) != null) { //Se a seleção existir...
@@ -899,6 +939,7 @@ public class Main extends Application {
 			entrada = leitor.nextInt();
 			leitor.nextLine(); //Limpa o buffer
 		}catch(Exception e) {
+			leitor.nextLine();
 			entrada = 0;
 		}
 		switch(entrada) {
@@ -912,6 +953,7 @@ public class Main extends Application {
 					entrada = leitor.nextInt(); //Recebe entrada do usuário
 					leitor.nextLine(); //Limpando Buffer
 				}catch(Exception e) {
+					leitor.nextLine();
 					entrada = 0;
 				}
 				switch(entrada) {
@@ -944,6 +986,7 @@ public class Main extends Application {
 					entrada = leitor.nextInt(); //Recebe a entrada do usuário
 					leitor.nextLine(); //Limpa buffer
 				}catch(Exception e) {
+					leitor.nextLine();
 					entrada = 0;
 				}
 				switch(entrada) {
@@ -1007,6 +1050,7 @@ public class Main extends Application {
 			entrada = leitor.nextInt();
 			leitor.nextLine(); //Limpa o buffer
 		}catch(Exception e) {
+			leitor.nextLine();
 			entrada = 0;
 		}
 		switch(entrada) {
@@ -1018,6 +1062,7 @@ public class Main extends Application {
 				entrada = leitor.nextInt(); //Recebe entrada do usuário
 				leitor.nextLine(); //Limpando Buffer
 			}catch(Exception e) {
+				leitor.nextLine();
 				entrada = 0;
 			}
 			switch(entrada) {
@@ -1039,6 +1084,7 @@ public class Main extends Application {
 				entrada = leitor.nextInt(); //Recebe a entrada do usuário
 				leitor.nextLine(); //Limpa buffer
 			}catch(Exception e) {
+				leitor.nextLine();
 				entrada = 0;
 			}
 			switch(entrada) {
