@@ -8,14 +8,25 @@ import execoes.MinimoArbitrosException;
 import execoes.QuantidadeSelecoesIncompletaException;
 
 public class FaseGrupo {
-
+	
+	//Atributos
 	private Grupo grupos[] = new Grupo[8];
 	private List<Integer> selecoes = new ArrayList<Integer>();
 	private boolean faseIniciada = false;
 	private boolean faseEncerrada = false;
 
+	//Construtor
 	public FaseGrupo() {
 		
+	}
+	
+	//Setters e Getters
+	public Grupo[] getGrupos() {
+		return this.grupos;
+	}
+	
+	public Grupo buscarGrupo(int index) {
+		return this.grupos[index];
 	}
 	
 	public boolean isFaseIniciada() {
@@ -30,6 +41,7 @@ public class FaseGrupo {
 		this.faseEncerrada = faseEncerrada;
 	}
 
+	//Método que atualiza as selecoes
 	public void updateSelecoes(Map<Integer, Selecao> selecoes) {
 		this.selecoes = new ArrayList<Integer>();
 		for (int key: selecoes.keySet()) {
@@ -37,13 +49,14 @@ public class FaseGrupo {
 		}
 	}
 	
+	//Método para iniciar a fase de grupos
 	public void iniciarFase(ArbitroDAO arbitroDAO) throws QuantidadeSelecoesIncompletaException, MinimoArbitrosException {
 		
-		if(arbitroDAO.ListaArbitro().size()>0) {
-			if (this.selecoes.size() == 32) {
+		if(arbitroDAO.ListaArbitro().size()>0) {//Para iniciar a fase de grupos, tem que haver no mínimo 1 árbitro
+			if (this.selecoes.size() == 32) {//Para iniciar a fase de grupos, tem que haver exatamente 32 seleções
 				
-				this.faseIniciada = true;
-				this.grupos[0] = new Grupo(this.selecoes.subList(0, 4));
+				this.faseIniciada = true; //Fase iniciou
+				this.grupos[0] = new Grupo(this.selecoes.subList(0, 4)); 
 				this.grupos[1] = new Grupo(this.selecoes.subList(4, 8));
 				this.grupos[2] = new Grupo(this.selecoes.subList(8, 12));
 				this.grupos[3] = new Grupo(this.selecoes.subList(12, 16));
@@ -59,14 +72,7 @@ public class FaseGrupo {
 		}
 	}
 	
-	public Grupo[] getGrupos() {
-		return this.grupos;
-	}
-	
-	public Grupo buscarGrupo(int index) {
-		return this.grupos[index];
-	}
-	
+	//Método que após a fase ser encerrada, o número de gols e cartões é atualizado
 	public void updateJogadores(JogadorDAO jogadorDAO) {
 		Grupo[] grupos = getGrupos();
 		Partida[] partidas;
@@ -81,6 +87,7 @@ public class FaseGrupo {
 		}
 	}
 	
+	//Método que encerra a fase de grupos e retorna a lista das 16 seleções que passaram
 	public List<Integer> encerrarFase() {
 		//Pegar as duas seleções com maior pontuação de cada grupo.
 		List<Integer> selecoesPassaram = new ArrayList<Integer>();

@@ -1,6 +1,7 @@
 package application.model;
 
 public class Jogador {
+	//Atributos
 	private int codJog;
 	private static int cod = 0;
 	private String nome;
@@ -8,13 +9,15 @@ public class Jogador {
 	private int[] cartoes = {0, 0};
 	private int numGols = 0;
 	
+	//Construtor
 	public Jogador(String nome, String posicao) {
 		this.codJog = cod;
 		cod++;
 		this.nome = nome;
 		this.posicao = posicao;
 	}
-		
+	
+	//Setters e getters
 	public int getCodJog() {
 		return this.codJog;
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Partida {
 	
+	//Atributos
 	private static int cod = 0;
 	private int codPartida; 
 	private int codArbitro;
@@ -17,17 +18,19 @@ public class Partida {
 	private int golsTime2;
 	private List<JogPartida> jogadores = new ArrayList<JogPartida>();
 	
+	//Construtor
 	public Partida() {
 		this.codPartida = cod;
 		cod++;
 		this.golsTime1 = 0;
 		this.golsTime2 = 0;
-		for(int i = 0; i < 22; i++) {
+		for(int i = 0; i < 22; i++) {//Cria os 22 jogadores daquela partida
 			JogPartida jogador = new JogPartida();
 			jogadores.add(jogador);
 		}
 	}
-
+	
+	//Setters e getters
 	public int getCodArbitro() {
 		return codArbitro;
 	}
@@ -106,6 +109,7 @@ public class Partida {
 		this.golsTime2 = golsTime2;
 	}
 	
+	//Método que recebe o código do jogador e retorna o joggador daquela partida
 	public JogPartida buscarJogPartida(int cod) {
 		for(JogPartida jogador:jogadores) {
 			if(jogador.getCodJogador() == cod)

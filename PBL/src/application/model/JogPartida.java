@@ -2,11 +2,13 @@ package application.model;
 
 public class JogPartida {
 	
+	//Atributos
 	private int codJogador;
 	private int gols;
 	private int cartoesAma;
 	private int cartoesVer;
 	
+	//Construtor 
 	public JogPartida() {
 		this.codJogador = 0;
 		this.gols = 0;
@@ -14,6 +16,7 @@ public class JogPartida {
 		this.cartoesVer = 0;
 	}
 
+	//Setters e getters
 	public int getCodJogador() {
 		return codJogador;
 	}

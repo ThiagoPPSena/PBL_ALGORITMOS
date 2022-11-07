@@ -55,15 +55,19 @@ public class Main extends Application {
 		}
 	}
 	
+	//Função que cria as partidas de um grupo
 	public static void criarPartidas() {
+		//Laço que percorre a lista dos 8 grupos
 		for(int i=0; i<8; i++) {
-
+			
 			System.out.println("Digite alguns dados das partidas do grupo "+(i+1));
-			Grupo grupo = faseGrupo.buscarGrupo(i);
-			Partida[] partidas = grupo.getPartidas();
-			for(Partida partida : partidas) {
+			Grupo grupo = faseGrupo.buscarGrupo(i);//Recebe o grupo na posição i
+			Partida[] partidas = grupo.getPartidas();//Pega as partidas daquele grupo
+			for(Partida partida : partidas) {//Percorre as partidas
+				//Pega as duas seleções daquela partida
 				Selecao selecao1 = selecaoDAO.BuscarSelecao(partida.getCodTime1());
 				Selecao selecao2 = selecaoDAO.BuscarSelecao(partida.getCodTime2());
+				//Cria a lista de códigos dos jogadores
 				List<Integer> listaCodJog_1 = selecao1.getListaCodJog();
 				List<Integer> listaCodJog_2 = selecao2.getListaCodJog();
 				List<Integer> listaCod = new ArrayList<Integer>();
@@ -77,10 +81,12 @@ public class Main extends Application {
 					listaJogPart.add(jogador);
 				}
 				partida.setJogadores(listaJogPart);
+				//Pergunta o local e seta o local
 				System.out.println("Partida entre " + selecao1.getNome() + " e " + selecao2.getNome());
 				System.out.println("Digite o local:");
 				String local = leitor.nextLine();
 				partida.setLocal(local);
+				//Pergunta o ano e seta o ano
 				int ano = 1924;
 				while(ano < 1930) {
 					System.out.println("Digite o ano:");
@@ -94,6 +100,7 @@ public class Main extends Application {
 					if(ano < 1930)
 						System.out.println("Digite novamente!Ano deve ser a partir de 1930");
 				}
+				//Pergunta o mês e seta o mês
 				int mes = 0;
 				while(mes < 1 || mes > 12) {
 					System.out.println("Digite o número do mes (Ex. 1-Janeiro):");
@@ -107,6 +114,7 @@ public class Main extends Application {
 					if(mes < 1 || mes > 12)
 						System.out.println("Digite novamente!Digite entre 1 e 12");
 				}
+				//Pergunta o dia e seta o dia
 				int dia = 0;
 				while(dia < 1 || dia > 31) {
 					System.out.println("Digite o dia:");
@@ -122,6 +130,7 @@ public class Main extends Application {
 				}
 				partida.setData(ano, mes, dia);
 				System.out.println("Digite o horário:");
+				//Pergunta as horas e o minutos
 				int horas = 25;
 				int minutos = 60;
 				while(horas < 0 || horas > 23) {
@@ -154,6 +163,7 @@ public class Main extends Application {
 						"Agora, olhando a lista de árbitros abaixo, digite o código daquele que abitará esta partida");
 				listarArbitros();
 				System.out.println("Código: ");
+				//Pergunta qual o código do árbitro que apitará o jogo
 				boolean entradaInvalida = true;
 				int codArbitro = 0;
 				while (entradaInvalida) {
@@ -194,7 +204,7 @@ public class Main extends Application {
 	public static void listarPartidas() {
 		
 		System.out.println("Digite o código do grupo que deseja listar as partidas (0-7)");
-		int cod;
+		int cod;//Solicita o código do grupo que deseja listar as partidas
 		try {
 			cod = leitor.nextInt();
 			leitor.nextLine();
@@ -202,6 +212,7 @@ public class Main extends Application {
 			leitor.nextLine();
 			cod = -1;
 		}
+		//O código dever ser de 0 a 7
 		if (cod >= 0 && cod < 8) {
 			Grupo grupo = faseGrupo.buscarGrupo(cod);
 			for (Partida partida : grupo.getPartidas()) {
@@ -218,11 +229,12 @@ public class Main extends Application {
 		}
 
 	}
-
+	
+	//Função que editar os dados da partida
 	public static void editarPartidas() {
 		List<Integer> listaCodPartidas = new ArrayList<Integer>();
 		System.out.println("Digite o código do grupo (0-7) da partida que deseja editar:");
-		int codGrupo;
+		int codGrupo; //Solicita o código do grupo a ter sua partida editada
 		try {
 			codGrupo = leitor.nextInt();
 			leitor.nextLine();
@@ -231,6 +243,7 @@ public class Main extends Application {
 			codGrupo = -1;
 		}
 		if (codGrupo >= 0 && codGrupo < 8) {
+			//Lista as partidas daquele grupo
 			Grupo grupo = faseGrupo.buscarGrupo(codGrupo);
 			for (Partida partida : grupo.getPartidas()) {
 				listaCodPartidas.add(partida.getCodPartida());
@@ -239,17 +252,17 @@ public class Main extends Application {
 				System.out.println(partida.getCodPartida()+" = Partida entre " + selecao1.getNome() + " e " + selecao2.getNome());
 			}
 			System.out.println("Digite o código da partida que deseja editar:");
-			int codPart;
+			int codPart;//Digita o código da partida aser editada
 			try {
 				codPart = leitor.nextInt();
 				leitor.nextLine();
 			}catch(Exception e) {
 				leitor.nextLine();
 				codPart = -1;
-			}
+			}//Se o código digitado for daquele grupo...
 			if(listaCodPartidas.contains(codPart)) {
 				int indexPart = grupo.buscarPartida(codPart);
-				Partida partida = grupo.getPartidas()[indexPart];
+				Partida partida = grupo.getPartidas()[indexPart];//Pega a partida e edita os dados da partida
 				System.out.println("Editar partida "+partida.getCodPartida());
 				System.out.println("Caso queira manter a mesma informação, reescreva-a da mesma forma que a anterior");
 				System.out.println("Digite o local editado(local atual: "+partida.getLocal()+")");
@@ -338,7 +351,7 @@ public class Main extends Application {
 	public static void editarJogPartida() {
 		List<Integer> listaCodPartidas = new ArrayList<Integer>();
 		System.out.println("Digite o código do grupo (0-7) da partida que deseja editar:");
-		int codGrupo;
+		int codGrupo;//Solicita o código do grupo
 		try {
 			codGrupo = leitor.nextInt();
 			leitor.nextLine();
@@ -348,14 +361,14 @@ public class Main extends Application {
 		}
 		if (codGrupo >= 0 && codGrupo < 8) {
 			Grupo grupo = faseGrupo.buscarGrupo(codGrupo);
-			for (Partida partida : grupo.getPartidas()) {
+			for (Partida partida : grupo.getPartidas()) {//Lista todas as partidas do grupo
 				listaCodPartidas.add(partida.getCodPartida());
 				Selecao selecao1 = selecaoDAO.BuscarSelecao(partida.getCodTime1());
 				Selecao selecao2 = selecaoDAO.BuscarSelecao(partida.getCodTime2());
 				System.out.println(partida.getCodPartida()+" = Partida entre " + selecao1.getNome() + " e " + selecao2.getNome());
 			}
 			System.out.println("Digite o código da partida que deseja editar seus jogadores:");
-			int codPart;
+			int codPart;//Solicita o código da partida
 			try {
 				codPart = leitor.nextInt();
 				leitor.nextLine();
@@ -363,15 +376,15 @@ public class Main extends Application {
 				leitor.nextLine();
 				codPart = -1;
 			}
-			if(listaCodPartidas.contains(codPart)) {
+			if(listaCodPartidas.contains(codPart)) {//Se a partida pertence ao grupo...
 				int indexPart = grupo.buscarPartida(codPart);
 				Partida partida = grupo.getPartidas()[indexPart];
 				System.out.println("Digite o código do jogador que deseja editar:");
-				for(JogPartida jogadorPart:partida.getJogadores()) {
+				for(JogPartida jogadorPart:partida.getJogadores()) {//Lista todos os jogadores da partida
 					int codJogador = jogadorPart.getCodJogador();
 					System.out.println("Código: "+codJogador+";Nome: "+jogadorDAO.BuscarJogador(codJogador).getNome());
 				}
-				int codJogador;
+				int codJogador;//Solicita o código do jogador
 				try {
 					codJogador = leitor.nextInt();
 					leitor.nextLine();
@@ -380,7 +393,7 @@ public class Main extends Application {
 					codJogador = -1;
 				}
 				JogPartida jogPartida = partida.buscarJogPartida(codJogador);
-				if(jogPartida != null) {
+				if(jogPartida != null) {//Se encontrou o jogador, pede para editá-lo
 					System.out.println("Editar jogador "+jogadorDAO.BuscarJogador(codJogador).getNome());
 					System.out.println("Caso queira manter a mesma informação, reescreva-a da mesma forma que a anterior");
 					System.out.println("Digite o número de gols na partida(gols atuais: "+jogPartida.getGols()+")");
@@ -435,8 +448,8 @@ public class Main extends Application {
 		}
 	}
 	
-	public static void pesquisarPorData() {
-		System.out.println("Digite uma data: ");
+	public static void pesquisarPorData() {//Pesquisa por data
+		System.out.println("Digite uma data: ");//Solicita o ano, mês e dia
 		int ano = 1924;
 		while(ano < 1930) {
 			System.out.println("Digite o ano:");
@@ -476,7 +489,7 @@ public class Main extends Application {
 			if(dia < 1 || dia > 31)
 				System.out.println("Digite novamente!Digite entre 1 e 31");
 		}
-		for(Grupo grupo:faseGrupo.getGrupos()) {
+		for(Grupo grupo:faseGrupo.getGrupos()) {//A partir da data, pesquisa todas as partidas daquela data
 			for(Partida partida:grupo.getPartidas()) {
 				if(partida.getData()[0] == dia && partida.getData()[1] == mes && partida.getData()[2] == ano) {
 					Selecao selecao1 = selecaoDAO.BuscarSelecao(partida.getCodTime1());
@@ -491,11 +504,11 @@ public class Main extends Application {
 	}
 	
 	public static void pesquisarPorCategoria() {
-		System.out.println("Digite o nome que deseja pesquisar:");
+		System.out.println("Digite o nome que deseja pesquisar:");//Solicita o nome a ser pesquisado
 		String nome = leitor.nextLine();
-		System.out.println("Digite o número correspondente a qual categoria quer pesquisar:");
+		System.out.println("Digite o número correspondente a qual categoria quer pesquisar:");//Pergunta qual é a categoria
 		System.out.println("1-Jogador\n2-Técnico\n3-Árbitro");
-		int escolha;
+		int escolha;//Através da escolha, pesquisa todos os objetos com o nome especificado e a categoria
 		try {
 			escolha = leitor.nextInt();
 			leitor.nextLine();
