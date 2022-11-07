@@ -12,6 +12,7 @@ public class FaseGrupo {
 	private Grupo grupos[] = new Grupo[8];
 	private List<Integer> selecoes = new ArrayList<Integer>();
 	private boolean faseIniciada = false;
+	private boolean faseEncerrada = false;
 
 	public FaseGrupo() {
 		
@@ -21,6 +22,14 @@ public class FaseGrupo {
 		return faseIniciada;
 	}
 	
+	public boolean isFaseEncerrada() {
+		return faseEncerrada;
+	}
+
+	public void setFaseEncerrada(boolean faseEncerrada) {
+		this.faseEncerrada = faseEncerrada;
+	}
+
 	public void updateSelecoes(Map<Integer, Selecao> selecoes) {
 		this.selecoes = new ArrayList<Integer>();
 		for (int key: selecoes.keySet()) {
@@ -31,7 +40,6 @@ public class FaseGrupo {
 	public void iniciarFase(ArbitroDAO arbitroDAO) throws QuantidadeSelecoesIncompletaException, MinimoArbitrosException {
 		
 		if(arbitroDAO.ListaArbitro().size()>0) {
-			System.out.println(this.selecoes.size());
 			if (this.selecoes.size() == 32) {
 				
 				this.faseIniciada = true;
@@ -103,6 +111,7 @@ public class FaseGrupo {
 			}
 			selecoesPassaram.add(this.grupos[i].getSelecoes().get(index2));
 		}
+		this.faseEncerrada = true;
 		return selecoesPassaram;
 	}
 }

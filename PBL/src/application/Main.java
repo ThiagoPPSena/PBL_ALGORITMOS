@@ -58,7 +58,7 @@ public class Main extends Application {
 	public static void criarPartidas() {
 		for(int i=0; i<8; i++) {
 
-			System.out.println("Digite alguns dados das partidas do grupo "+i);
+			System.out.println("Digite alguns dados das partidas do grupo "+(i+1));
 			Grupo grupo = faseGrupo.buscarGrupo(i);
 			Partida[] partidas = grupo.getPartidas();
 			for(Partida partida : partidas) {
@@ -123,7 +123,7 @@ public class Main extends Application {
 				partida.setData(ano, mes, dia);
 				System.out.println("Digite o horário:");
 				int horas = 25;
-				int minutos = 61;
+				int minutos = 60;
 				while(horas < 0 || horas > 23) {
 					System.out.println("Digite as horas:");
 					try {
@@ -136,17 +136,17 @@ public class Main extends Application {
 					if(horas < 0 || horas > 23)
 						System.out.println("Digite novamente!Digite entre 0 e 23");
 				}
-				while(minutos < 0 || minutos > 60) {
+				while(minutos < 0 || minutos > 59) {
 					System.out.println("Digite os minutos:");
 					try {
-						horas = leitor.nextInt();
+						minutos = leitor.nextInt();
 						leitor.nextLine();
 					}catch(Exception e) {
 						leitor.nextLine();
 						System.out.println("Entrada inválida!");
 					}
-					if(minutos < 0 || minutos > 60)
-						System.out.println("Digite novamente!Digite entre 0 e 60");
+					if(minutos < 0 || minutos > 59)
+						System.out.println("Digite novamente!Digite entre 0 e 59");
 				}
 				int[] horario = {horas, minutos};
 				partida.setHorario(horario);
@@ -202,7 +202,7 @@ public class Main extends Application {
 			leitor.nextLine();
 			cod = -1;
 		}
-		if (cod >= 0 || cod < 8) {
+		if (cod >= 0 && cod < 8) {
 			Grupo grupo = faseGrupo.buscarGrupo(cod);
 			for (Partida partida : grupo.getPartidas()) {
 				Selecao selecao1 = selecaoDAO.BuscarSelecao(partida.getCodTime1());
@@ -230,7 +230,7 @@ public class Main extends Application {
 			leitor.nextLine();
 			codGrupo = -1;
 		}
-		if (codGrupo >= 0 || codGrupo < 8) {
+		if (codGrupo >= 0 && codGrupo < 8) {
 			Grupo grupo = faseGrupo.buscarGrupo(codGrupo);
 			for (Partida partida : grupo.getPartidas()) {
 				listaCodPartidas.add(partida.getCodPartida());
@@ -255,7 +255,7 @@ public class Main extends Application {
 				System.out.println("Digite o local editado(local atual: "+partida.getLocal()+")");
 				String local = leitor.nextLine();
 				partida.setLocal(local);
-				System.out.println("Digite a data editada(data atual: "+partida.getData()+")");
+				System.out.println("Digite a data editada(data atual: "+partida.getData()[0]+"/"+partida.getData()[1]+"/"+partida.getData()[2]+")");
 				int ano = 1924;
 				while(ano < 1930) {
 					System.out.println("Digite o ano:");
@@ -311,7 +311,7 @@ public class Main extends Application {
 					if(horas < 0 || horas > 23)
 						System.out.println("Digite novamente!Digite entre 0 e 23");
 				}
-				while(minutos < 0 || minutos > 60) {
+				while(minutos < 0 || minutos > 59) {
 					System.out.println("Digite os minutos:");
 					try {
 						minutos = leitor.nextInt();
@@ -320,8 +320,8 @@ public class Main extends Application {
 						leitor.nextLine();
 						System.out.println("Entrada inválida!");
 					}
-					if(minutos < 0 || minutos > 60)
-						System.out.println("Digite novamente!Digite entre 0 e 60");
+					if(minutos < 0 || minutos > 59)
+						System.out.println("Digite novamente!Digite entre 0 e 59");
 				}
 				int[] horario = {horas, minutos};
 				partida.setHorario(horario);
@@ -346,7 +346,7 @@ public class Main extends Application {
 			leitor.nextLine();
 			codGrupo = -1;
 		}
-		if (codGrupo >= 0 || codGrupo < 8) {
+		if (codGrupo >= 0 && codGrupo < 8) {
 			Grupo grupo = faseGrupo.buscarGrupo(codGrupo);
 			for (Partida partida : grupo.getPartidas()) {
 				listaCodPartidas.add(partida.getCodPartida());
@@ -408,7 +408,7 @@ public class Main extends Application {
 						}
 					}
 					int cartVer = -1;
-					while(cartVer != 0 || cartVer != 1) {
+					while(cartVer != 0 && cartVer != 1) {
 						System.out.println("Digite o número de cartões Vermelhos na partida(cartões atuais: "+jogPartida.getCartoesVer()+")");
 						try {
 							cartVer = leitor.nextInt();
@@ -417,7 +417,7 @@ public class Main extends Application {
 							leitor.nextLine();
 							cartVer = -1;
 						}
-						if(cartVer != 1 || cartVer != 1) {
+						if(cartVer != 1 && cartVer != 1) {
 							System.out.println("Digite novamente!Ou 0, ou 1");
 						}
 					}
@@ -476,16 +476,14 @@ public class Main extends Application {
 			if(dia < 1 || dia > 31)
 				System.out.println("Digite novamente!Digite entre 1 e 31");
 		}
-		Calendar data = Calendar.getInstance();
-		data.set(ano, mes, dia);
 		for(Grupo grupo:faseGrupo.getGrupos()) {
 			for(Partida partida:grupo.getPartidas()) {
-				if(partida.getData() == data) {
+				if(partida.getData()[0] == dia && partida.getData()[1] == mes && partida.getData()[2] == ano) {
 					Selecao selecao1 = selecaoDAO.BuscarSelecao(partida.getCodTime1());
 					Selecao selecao2 = selecaoDAO.BuscarSelecao(partida.getCodTime2());
 					System.out.println(partida.getCodPartida()+" = Partida entre " + selecao1.getNome() + " e " + selecao2.getNome());
 					System.out.println("Local: "+partida.getLocal());
-					System.out.println("Horário: "+partida.getHorario());
+					System.out.println("Horário: "+partida.getHorario()[0]+"h"+partida.getHorario()[1]+"m");
 				}
 			}
 		}
@@ -508,19 +506,19 @@ public class Main extends Application {
 		switch(escolha) {
 		case 1:
 			for(Jogador jogador:jogadorDAO.ListaJog().values()) {
-				if(jogador.getNome() == nome)
+				if(jogador.getNome().equals(nome))
 					System.out.println(jogador);
 			}
 			break;
 		case 2:
 			for(Tecnico tecnico:tecnicoDAO.ListaTecnico().values()) {
-				if(tecnico.getNome() == nome)
+				if(tecnico.getNome().equals(nome))
 					System.out.println("Código: "+tecnico.getCodTec()+"; Nome: "+tecnico.getNome());
 			}
 			break;
 		case 3:
 			for (Arbitro arbitro : arbitroDAO.ListaArbitro().values()) {
-				if (arbitro.getNome() == nome)
+				if (arbitro.getNome().equals(nome))
 					System.out.println("Código: " + arbitro.getCodArbitro() + "; Nome: " + arbitro.getNome());
 			}
 			break;
@@ -1020,6 +1018,7 @@ public class Main extends Application {
 			faseGrupo.updateSelecoes(selecaoDAO.ListaSelecao());
 			try {
 				faseGrupo.iniciarFase(arbitroDAO);
+				criarPartidas();
 			}catch(Exception except) {
 				System.out.println(except.getMessage());
 			}
@@ -1037,8 +1036,6 @@ public class Main extends Application {
 	public static boolean menu2() {
 		int entrada;
 		boolean continuar = true;
-		
-		criarPartidas();
 		
 		System.out.println("Escolha qual ação deseja tomar:");
 		//Denrtro de seleção, pode-se manipular os seus jogadores e seu técnico
@@ -1123,7 +1120,7 @@ public class Main extends Application {
 		case 10: //Para encerrar a fase de grupos
 			faseGrupo.updateSelecoes(selecaoDAO.ListaSelecao());
 			faseGrupo.updateJogadores(jogadorDAO);
-			faseGrupo.encerrarFase();
+			faseGrupo.setFaseEncerrada(true);
 			break;
 		default:
 			//Encerra o menu e sai do loop
@@ -1143,8 +1140,15 @@ public class Main extends Application {
 		while(loop) {
 			if (faseGrupo.isFaseIniciada() == false) {
 				loop = menu1();
-			}else {
+			}else if (faseGrupo.isFaseEncerrada() == false){
 				loop = menu2();
+			}else {
+				List<Integer> selecoesPosFaseGrupo = faseGrupo.encerrarFase();
+				System.out.println("\nFase de Grupos encerrada. Seleções que passaram:\n");
+				for (int cod: selecoesPosFaseGrupo) {
+					System.out.println(selecaoDAO.BuscarSelecao(cod).getCodSel() + "=" + selecaoDAO.BuscarSelecao(cod).getNome());
+				}
+				loop = false;
 			}
 		}
 		System.out.println("Obrigado por usar o SysCopa!!!");

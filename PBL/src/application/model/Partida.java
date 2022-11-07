@@ -1,7 +1,6 @@
 package application.model;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class Partida {
@@ -9,7 +8,7 @@ public class Partida {
 	private static int cod = 0;
 	private int codPartida; 
 	private int codArbitro;
-	private Calendar data = Calendar.getInstance();
+	private int[] data = {0, 0, 0};
 	private int[] horario = {0, 0};
 	private String local;
 	private int codTime1;
@@ -49,12 +48,14 @@ public class Partida {
 		return codPartida;
 	}
 
-	public Calendar getData() {
+	public int[] getData() {
 		return data;
 	}
 
 	public void setData(int ano, int mes, int dia) {
-		this.data.set(ano, mes, dia);
+		this.data[0] = dia;
+		this.data[1] = mes;
+		this.data[2] = ano;
 	}
 
 	public int[] getHorario() {
