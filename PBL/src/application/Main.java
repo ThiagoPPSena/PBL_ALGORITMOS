@@ -704,7 +704,7 @@ public class Main extends Application {
 		try {
 			selecaoDAO.InserirSelecao(sel); //Insere a seleção já criada na lista do DAO selecao
 			System.out.println("Agora digite os dados dos 11 jogadores da selecao:");
-			for(int i=1; i<2; i++) { //Cria os 11 jogadores da selecao
+			for(int i=1; i<12; i++) { //Cria os 11 jogadores da selecao
 				System.out.println("Dados do "+i+"º jogador:");
 				System.out.println("Nome:");
 				nome = leitor.nextLine(); //Recebe o nome do jogador
